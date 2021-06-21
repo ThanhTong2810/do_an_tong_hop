@@ -1,0 +1,23 @@
+{
+  "app_name": "KT Companion",
+  "companies": [
+    {
+      "company_name": "KTHub",
+      "company_logo": "lib/res/images/logo_kt_hub.png"
+    },
+    {
+      "company_name": "The Enest",
+      "company_logo": "lib/res/images/logo_the_enest.jpg"
+    }
+  ],
+  "cancel": "Huỷ bỏ",
+  "confirm": "Xác nhận",
+  "Regular": "Định kỳ",
+  "Bonus": "Tặng",
+  "Deferred": "Hoãn",
+  "Canceled": "Hủy",
+  "Total": "Tổng",
+  "Make-up": "Bù vào",
+  "Not start yet": "Chưa bắt đầu",
+  "Total Remaining": "Tổng còn lại"
+}

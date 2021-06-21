@@ -1,0 +1,23 @@
+{
+  "app_name": "KT Companion",
+  "companies": [
+    {
+      "company_name": "KTHub",
+      "company_logo": "lib/res/images/logo_kt_hub.png"
+    },
+    {
+      "company_name": "The Enest",
+      "company_logo": "lib/res/images/logo_the_enest.jpg"
+    }
+  ],
+  "cancel": "Cancel",
+  "confirm":"Confirm",
+  "Regular": "Regular",
+  "Bonus": "Bonus",
+  "Deferred": "Deferred",
+  "Canceled": "Canceled",
+  "Total": "Total",
+  "Make-up": "Make-up",
+  "Not start yet": "Not start yet",
+  "Total Remaining": "Total Remaining"
+}
