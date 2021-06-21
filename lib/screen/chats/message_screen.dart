@@ -4,17 +4,22 @@ import 'package:do_an_tong_hop/models/chat/chat_messages_model.dart';
 import 'package:do_an_tong_hop/models/individual_chat/individual_chat.dart';
 import 'package:do_an_tong_hop/models/user/user_get_account_by_id.dart';
 import 'package:do_an_tong_hop/theme/colors.dart';
+import 'package:do_an_tong_hop/theme/dimens.dart';
+import 'package:do_an_tong_hop/theme/icons_app.dart';
 import 'package:do_an_tong_hop/theme/images_app.dart';
+import 'package:do_an_tong_hop/widgets/app_button.dart';
 import 'package:do_an_tong_hop/widgets/app_text.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class MessagesScreen extends StatefulWidget {
   final String name;
   final String imgSrc;
+  final bool isGroup;
 
-  const MessagesScreen({Key key, this.name, this.imgSrc}) : super(key: key);
+  const MessagesScreen({Key key, this.name, this.imgSrc, this.isGroup}) : super(key: key);
   @override
   _MessagesScreenState createState() => _MessagesScreenState();
 }
@@ -22,28 +27,17 @@ class MessagesScreen extends StatefulWidget {
 class _MessagesScreenState extends State<MessagesScreen> {
   final ChatController chatController = Get.find();
   final UserController userController = Get.find();
-  List<ChatMessage> messages = [
-    ChatMessage(messageContent: "Hello, Will", messageType: "receiver"),
-    ChatMessage(messageContent: "How have you been?", messageType: "receiver"),
-    ChatMessage(messageContent: "Hey Kriss, I am doing fine dude. wbu?", messageType: "sender"),
-    ChatMessage(messageContent: "ehhhh, doing OK.", messageType: "receiver"),
-    ChatMessage(messageContent: "Is there any thing wrong?", messageType: "sender"),
-    ChatMessage(messageContent: "Hello, Will", messageType: "receiver"),
-    ChatMessage(messageContent: "How have you been?", messageType: "receiver"),
-    ChatMessage(messageContent: "Hey Kriss, I am doing fine dude. wbu?", messageType: "sender"),
-    ChatMessage(messageContent: "ehhhh, doing OK.", messageType: "receiver"),
-    ChatMessage(messageContent: "Is there any thing wrong?", messageType: "sender"),
-  ];
+  TextEditingController _content = TextEditingController();
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Obx((){
+      return Scaffold(
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.white,
@@ -54,7 +48,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
                 children: <Widget>[
                   IconButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      Get.back();
                     },
                     icon: Icon(Icons.arrow_back, color: Colors.black,),
                   ),
@@ -70,14 +64,13 @@ class _MessagesScreenState extends State<MessagesScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(widget.name, style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w600),),
+                            fontSize: 16, fontWeight: FontWeight.w600),overflow: TextOverflow.ellipsis,),
                         SizedBox(height: 6,),
                         Text("Online", style: TextStyle(
                             color: Colors.grey.shade600, fontSize: 13),),
                       ],
                     ),
                   ),
-                  Icon(Icons.settings, color: Colors.black54,),
                 ],
               ),
             ),
@@ -87,10 +80,10 @@ class _MessagesScreenState extends State<MessagesScreen> {
           children: <Widget>[
             Expanded(
               child: StreamBuilder(
-                stream: FirebaseDatabase.instance.reference().child("chat_messages/${chatController.roomSelected.value}").onValue,
+                stream: FirebaseDatabase.instance.reference().child("chat_messages/${chatController.roomSelected.value}").orderByChild('time').onValue,
                 builder: (context,snapshot){
                   List<ChatMessages> chatMessages = [];
-                  if(!snapshot.hasData || snapshot.hasError){
+                  if(!snapshot.hasData || snapshot.hasError || snapshot.data.snapshot.value == null){
                     return Center(
                       child: AppText(
                         text:"No Messages!!!",
@@ -100,6 +93,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
                   snapshot.data.snapshot.value.forEach((k,v){
                     chatMessages.add(ChatMessages.fromJson(v));
                   });
+                  chatMessages.sort((a,b)=> b.time.compareTo(a.time));
                   return ListView.builder(
                     reverse: true,
                     itemCount: chatMessages.length,
@@ -147,6 +141,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
                   SizedBox(width: 15,),
                   Expanded(
                     child: TextField(
+                      controller: _content,
                       decoration: InputDecoration(
                           hintText: "Write message...",
                           hintStyle: TextStyle(color: Colors.black54),
@@ -156,7 +151,12 @@ class _MessagesScreenState extends State<MessagesScreen> {
                   ),
                   SizedBox(width: 15,),
                   FloatingActionButton(
-                    onPressed: (){},
+                    onPressed: () async{
+                      if(_content.text.isNotEmpty){
+                        await chatController.addChatMessages(userController, _content);
+                        _content.text = '';
+                      }
+                    },
                     child: Icon(Icons.send,color: Colors.white,size: 18,),
                     backgroundColor: Colors.blue,
                     elevation: 0,
@@ -166,6 +166,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
             ),
           ],
         ),
-    );
+      );
+    });
   }
 }
