@@ -87,7 +87,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
           children: <Widget>[
             Expanded(
               child: StreamBuilder(
-                stream: FirebaseDatabase.instance.reference().child("chat_messages/-McdLZdr2gxjp5kn-kXl").onValue,
+                stream: FirebaseDatabase.instance.reference().child("chat_messages/${chatController.roomSelected.value}").onValue,
                 builder: (context,snapshot){
                   List<ChatMessages> chatMessages = [];
                   if(!snapshot.hasData || snapshot.hasError){
@@ -122,7 +122,6 @@ class _MessagesScreenState extends State<MessagesScreen> {
                       );
                     },
                   );
-
                 } ,
               ),
             ),
