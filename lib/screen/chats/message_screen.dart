@@ -103,13 +103,23 @@ class _MessagesScreenState extends State<MessagesScreen> {
                           padding: EdgeInsets.only(left: 14,right: 14,top: 10,bottom: 10),
                           child: Align(
                             alignment: (chatMessages[index].idUser != userController.user.value.id?Alignment.topLeft:Alignment.topRight),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: (chatMessages[index].idUser != userController.user.value.id?Colors.grey.shade200:Colors.blue[200]),
-                              ),
-                              padding: EdgeInsets.all(16),
-                              child: Text(chatMessages[index].content, style: TextStyle(fontSize: 15),),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                chatMessages[index].idUser != userController.user.value.id?CircleAvatar(
+                                  backgroundImage: NetworkImage(chatMessages[index].imageSender),
+                                  maxRadius: 15,
+                                ):SizedBox(),
+                                Dimens.width10,
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: (chatMessages[index].idUser != userController.user.value.id?Colors.grey.shade200:Colors.blue[200]),
+                                  ),
+                                  padding: EdgeInsets.all(16),
+                                  child: Text(chatMessages[index].content, style: TextStyle(fontSize: 15),),
+                                ),
+                              ],
                             ),
                           ),
                         ),
