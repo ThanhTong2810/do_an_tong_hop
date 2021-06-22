@@ -31,7 +31,7 @@ class ChatController extends GetxController{
     containId.addAll({
       "${userGetById.id}":{
         "id":userGetById.id,
-        "image": userGetById.imgSrc,
+        "imageSrc": userGetById.imgSrc,
         "name": userGetById.name,
         "username":userGetById.userName
       },
@@ -39,7 +39,7 @@ class ChatController extends GetxController{
     containId.addAll({
       "${userController.user.value.id}":{
         "id":userController.user.value.id,
-        "image": userController.user.value.imgSrc,
+        "imageSrc": userController.user.value.imgSrc,
         "name": userController.user.value.name,
         "username":userController.user.value.userName
       },
@@ -95,6 +95,7 @@ class ChatController extends GetxController{
       "content":content.text,
       "idUser": userController.user.value.id,
       "name": userController.user.value.name,
+      "imageSender":userController.user.value.imgSrc,
       "time": DateTime.now().millisecondsSinceEpoch,
       "username": userController.user.value.userName
     };
