@@ -85,13 +85,13 @@ class _SplashScreenState extends State<SplashScreen> {
         await userController.signIn(openBox.get('email'), openBox.get('password'));
         if(userController.user.value!=null){
           userController.errorText.value = '';
-          Get.off(()=>BottomNavPage());
+          await Get.off(()=>BottomNavPage());
         }else{
           openBox.clear();
-          Get.to(()=>SignInPage());
+          await Get.to(()=>SignInPage());
         }
     }else{
-      Get.to(()=>SignInPage());
+      await Get.to(()=>SignInPage());
     }
   }
 }

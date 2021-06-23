@@ -124,7 +124,7 @@ class _DirectPageState extends State<DirectPage> {
                                 name: containId['containId'][following.id]
                                     ['username'],
                                 imgSrc: containId['containId'][following.id]
-                                    ['image'],
+                                    ['imageSrc'],
                                 isGroup: false));
                           }
                         },

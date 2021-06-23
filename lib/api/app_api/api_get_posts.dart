@@ -6,12 +6,12 @@ import 'package:do_an_tong_hop/api/do_an_api.dart';
 class GetPostsApi extends DoAnApi {
   GetPostsApi() : super();
 
-  Future<ApiResponse> getPostsApi({String id}) async {
+  Future<ApiResponse> getPostsApi({String id, String timeStamp}) async {
     var dataSend = {
       "id": id,
-      "timeStamp":DateTime.now().millisecondsSinceEpoch.toString()
+      "timeStamp": timeStamp??null
     };
-
+    dataSend.removeWhere((key, value) => value == null);
     ApiResponse apiResponse;
     try {
       Response response = await DoAnApi.httpClient.get(

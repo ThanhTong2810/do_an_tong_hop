@@ -7,6 +7,7 @@ import 'package:do_an_tong_hop/theme/colors.dart';
 import 'package:do_an_tong_hop/theme/dimens.dart';
 import 'package:do_an_tong_hop/theme/icons_app.dart';
 import 'package:do_an_tong_hop/theme/images_app.dart';
+import 'package:do_an_tong_hop/utils/utils.dart';
 import 'package:do_an_tong_hop/widgets/app_button.dart';
 import 'package:do_an_tong_hop/widgets/app_text.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -112,11 +113,12 @@ class _MessagesScreenState extends State<MessagesScreen> {
                                 ):SizedBox(),
                                 Dimens.width10,
                                 Container(
+                                  constraints: BoxConstraints(maxWidth: getScreenWidth(context)/1.5),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
                                     color: (chatMessages[index].idUser != userController.user.value.id?Colors.grey.shade200:Colors.blue[200]),
                                   ),
-                                  padding: EdgeInsets.all(16),
+                                  padding: EdgeInsets.all(12),
                                   child: Text(chatMessages[index].content, style: TextStyle(fontSize: 15),),
                                 ),
                               ],
