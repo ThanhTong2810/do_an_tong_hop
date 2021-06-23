@@ -11,8 +11,9 @@ class DoAnApi {
   static const POST_FOLLOW_ACCOUNT = 'user/follow';
   static const DELETE_UNFOLLOW_ACCOUNT = 'user/follow';
   static const GET_SUGGESTED_ACCOUNT_BY_ID = 'user/suggestedAccounts';
-  static const GET_POSTS = '/post';
-  static const POST_SAVE_POSTS = '/post';
+  static const PUT_LOG_OUT = 'user/signIn';
+  static const GET_POSTS = 'post';
+  static const POST_SAVE_POSTS = 'post';
 
   /// HEADERS
   static const CONTENT_TYPE = 'Content-Type';

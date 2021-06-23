@@ -36,7 +36,7 @@ class _HeaderAccountWidgetState extends State<HeaderAccountWidget> {
                     BigAvatarUserWidget(),
                     Padding(
                       padding: EdgeInsets.only(top: 8),
-                      child: Text('${userController.user.value.userName} ${userController.user.value.name}', style: Theme.of(context).textTheme.bodyText2,),
+                      child: Text('${userController.user.value.userName}', style: Theme.of(context).textTheme.bodyText2,),
                     )
                   ],
                 ),

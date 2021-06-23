@@ -13,7 +13,7 @@ class User{
   User(this.id, this.email, this.password, this.imgSrc, this.userName, this.name, this.description, this.followers, this.following, this.isLogin);
 
   User.fromJson(Map<dynamic, dynamic> json)
-      : id = json['id'] ?? -1,
+      : id = json['id'] ?? "",
         email = json['email'] ?? '',
         password = json['password'] ?? '',
         imgSrc = json['imageSrc'] ?? "",

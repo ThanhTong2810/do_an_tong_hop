@@ -8,6 +8,7 @@ import 'package:do_an_tong_hop/api/app_api/api_get_suggested_account_by_id.dart'
 import 'package:do_an_tong_hop/api/app_api/api_post_follow_account.dart';
 import 'package:do_an_tong_hop/api/app_api/api_post_sign_in.dart';
 import 'package:do_an_tong_hop/api/app_api/api_post_sign_up.dart';
+import 'package:do_an_tong_hop/api/app_api/api_put_log_out.dart';
 import 'package:do_an_tong_hop/api/app_api/api_put_update_avatar.dart';
 import 'package:do_an_tong_hop/helpers/cloudinary_helper.dart';
 import 'package:do_an_tong_hop/models/user/user.dart';
@@ -58,6 +59,12 @@ class UserController extends GetxController {
         name: name,
         description: description);
     isShowLoading.value =false;
+  }
+
+  logOut() async{
+    ApiResponse response = await LogOutApi().logOutApi(
+        id: user.value.id,
+    );
   }
 
   updateAvatar(String id, String imageSrc) async{
@@ -145,23 +152,19 @@ class UserController extends GetxController {
   }
 
   getListFollowers(){
-    isShowLoading.value = true;
     listFollowers.clear();
     user.value.followers.forEach((key, value) async{
       UserGetById userFollowers = await getAccountById(value['id_account']);
       listFollowers.add(userFollowers);
     });
-    isShowLoading.value = false;
   }
 
   getListFollowing() {
-    isShowLoading.value = true;
     listFollowing.clear();
     user.value.following.forEach((key, value) async{
       UserGetById userFollowers = await getAccountById(value['id_account']);
       listFollowing.add(userFollowers);
     });
-    isShowLoading.value = false;
   }
 
   unFollow(String myId, String followingId) async{

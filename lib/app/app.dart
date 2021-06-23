@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:connectivity/connectivity.dart';
 import 'package:do_an_tong_hop/controller/app_controller.dart';
 import 'package:do_an_tong_hop/controller/chat_controller.dart';
+import 'package:do_an_tong_hop/controller/posts_controller.dart';
 import 'package:do_an_tong_hop/controller/user_controller.dart';
 import 'package:do_an_tong_hop/localization/flutter_localizations_delegate.dart';
 import 'package:do_an_tong_hop/screen/no_connection_screen.dart';
@@ -74,6 +75,7 @@ class _AppState extends State<DoAnApp> {
         initialBinding: BindingsBuilder(() {
           Get.put(UserController());
           Get.put(ChatController());
+          Get.put(PostsController());
         }),
         debugShowCheckedModeBanner: false,
         title: '',

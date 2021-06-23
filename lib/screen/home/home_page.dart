@@ -15,24 +15,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final UserController userController =Get.find();
-  final ChatController chatController = Get.find();
 
   @override
   void initState() {
-    onWidgetBuildDone(getSuggestedAndFollow);
     super.initState();
   }
 
-  getSuggestedAndFollow() async{
-    userController.isShowLoading.value = true;
-    userController.listSuggestedAccount.clear();
-    await userController.getSuggestedAccount(userController.user.value.id);
-    await userController.getListFollowers();
-    await userController.getListFollowing();
-    await chatController.getAllRoomContainMyId(userController.user.value.id);
-    userController.isShowLoading.value = false;
-  }
+
 
   @override
   Widget build(BuildContext context) {

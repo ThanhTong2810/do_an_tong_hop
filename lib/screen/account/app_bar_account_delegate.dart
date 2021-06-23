@@ -1,11 +1,15 @@
 import 'dart:developer' as developer;
 
 import 'package:do_an_tong_hop/controller/user_controller.dart';
+import 'package:do_an_tong_hop/screen/sign_in_page/sign_in_page.dart';
+import 'package:do_an_tong_hop/theme/colors.dart';
+import 'package:do_an_tong_hop/widgets/app_text.dart';
 import 'package:do_an_tong_hop/widgets/bottomsheet/bottom_sheet_action.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:do_an_tong_hop/widgets/app_context.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 
 class AppBarAccountDelegate extends SliverPersistentHeaderDelegate {
   final UserController userController = Get.find();
@@ -30,23 +34,45 @@ class AppBarAccountDelegate extends SliverPersistentHeaderDelegate {
                 ),
                 child: Row(
                   children: <Widget>[
-                    Text('${userController.user.value.userName} ${userController.user.value.name}', style: Theme.of(context).primaryTextTheme.subtitle2,),
+                    Text('${userController.user.value.userName}', style: Theme.of(context).primaryTextTheme.subtitle2,),
                     Icon(Icons.keyboard_arrow_down, size: 16,)
                   ],
                 ),
               ),
               IconButton(
                 icon: Icon(Icons.menu),
-                onPressed: (){
-                  context.showBottomSheet(
-                      [
-                        BottomSheetAction(iconData: Icons.archive, title: 'Archive', id: 1,onTap: (){}),
-                        BottomSheetAction(iconData: Icons.show_chart, title: 'Insights', id: 2,onTap: (){}),
-                        BottomSheetAction(iconData: Icons.history, title: 'Your activity', id: 3,onTap: (){}),
-                        BottomSheetAction(iconData: Icons.scanner, title: 'QR Code', id: 4,onTap: (){}),
-                        BottomSheetAction(iconData: Icons.bookmark_border, title: 'Saved', id: 5,onTap: (){}),
-                        BottomSheetAction(iconData: Icons.group_add, title: 'Discover People', id: 6,onTap: (){}),
-                      ]
+                onPressed: () async{
+                  await showModalBottomSheet(
+                      context: context,
+                    builder: (BuildContext contextOptions){
+                        return Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            GestureDetector(
+                              child: Card(
+                                elevation: 0,
+                                child: ListTile(
+                                  leading: Icon(Icons.logout, color: AppColors.black,),
+                                  title: AppText(
+                                    text: 'Logout',
+                                    color: AppColors.black,
+                                  ),
+                                ),
+                              ),
+                              onTap: () async{
+                                print('--->Logout<---');
+                                Get.back();
+                                Get.off(()=>SignInPage());
+                                final openBox = await Hive.openBox('USER');
+                                await openBox.clear();
+                                await userController.logOut();
+                                userController.user.value = null;
+
+                              },
+                            ),
+                          ],
+                        );
+                    },
                   );
                 },
               )

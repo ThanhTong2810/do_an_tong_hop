@@ -1,3 +1,6 @@
+import 'package:do_an_tong_hop/controller/chat_controller.dart';
+import 'package:do_an_tong_hop/controller/posts_controller.dart';
+import 'package:do_an_tong_hop/controller/user_controller.dart';
 import 'package:do_an_tong_hop/helpers/notification_helper.dart';
 import 'package:do_an_tong_hop/theme/icons_app.dart';
 import 'package:do_an_tong_hop/screen/account/account_page.dart';
@@ -5,8 +8,10 @@ import 'package:do_an_tong_hop/screen/activity/activity_page.dart';
 import 'package:do_an_tong_hop/screen/home/home_page.dart';
 import 'package:do_an_tong_hop/screen/post/post_page.dart';
 import 'package:do_an_tong_hop/screen/search/search_pages.dart';
+import 'package:do_an_tong_hop/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:tuple/tuple.dart';
 
 import 'bottom_navigation_item.dart';
@@ -17,6 +22,9 @@ class BottomNavPage extends StatefulWidget {
 }
 
 class _BottomNavPageState extends State<BottomNavPage> {
+  final UserController userController =Get.find();
+  final ChatController chatController = Get.find();
+  final PostsController postsController = Get.find();
 
   int _currentTabIndex = 0;
   PageController _pageController = PageController(initialPage: 0);
@@ -32,7 +40,19 @@ class _BottomNavPageState extends State<BottomNavPage> {
   @override
   void initState() {
     NotificationHelper.handleNotification(context);
+    onWidgetBuildDone(getSuggestedAndFollow);
     super.initState();
+  }
+
+  getSuggestedAndFollow() async{
+    userController.isShowLoading.value = true;
+    userController.listSuggestedAccount.clear();
+    await postsController.getPosts(userController);
+    await userController.getSuggestedAccount(userController.user.value.id);
+    await userController.getListFollowers();
+    await userController.getListFollowing();
+    await chatController.getAllRoomContainMyId(userController.user.value.id);
+    userController.isShowLoading.value = false;
   }
 
   @override

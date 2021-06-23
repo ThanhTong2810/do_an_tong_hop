@@ -119,7 +119,7 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                     onTap: () async{
                       await userController.signIn(email.text, password.text);
-                      if(userController.user.value!=null){
+                      if(userController.user.value !=null){
                         userController.errorText.value = '';
                         await Get.off(()=>BottomNavPage());
                       }
@@ -158,7 +158,6 @@ class _SignInPageState extends State<SignInPage> {
           ),
         ),
         isLoading: userController.isShowLoading.value,
-
       );
     });
   }

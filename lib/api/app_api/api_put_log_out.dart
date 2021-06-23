@@ -3,20 +3,14 @@ import 'package:do_an_tong_hop/api/api_response.dart';
 import 'package:do_an_tong_hop/api/do_an_api.dart';
 
 
-class GetPostsApi extends DoAnApi {
-  GetPostsApi() : super();
+class LogOutApi extends DoAnApi {
+  LogOutApi() : super();
 
-  Future<ApiResponse> getPostsApi({String id}) async {
-    var dataSend = {
-      "id": id,
-      "timeStamp":DateTime.now().millisecondsSinceEpoch.toString()
-    };
-
+  Future<ApiResponse> logOutApi({String id}) async {
     ApiResponse apiResponse;
     try {
-      Response response = await DoAnApi.httpClient.get(
-        DoAnApi.GET_POSTS,
-        queryParameters: dataSend,
+      Response response = await DoAnApi.httpClient.put(
+        '${DoAnApi.PUT_LOG_OUT}?id=$id',
       );
       final data = response.data;
       apiResponse = ApiResponse(data: data, apiError: null);
