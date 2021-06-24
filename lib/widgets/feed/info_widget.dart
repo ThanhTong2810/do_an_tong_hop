@@ -7,7 +7,7 @@ class InfoWidget extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final onOpenComment = () {
-      Get.to(()=>CommentPage());
+
     };
 
     return Container(

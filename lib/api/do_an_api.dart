@@ -14,6 +14,7 @@ class DoAnApi {
   static const PUT_LOG_OUT = 'user/signIn';
   static const GET_POSTS = 'post';
   static const POST_SAVE_POSTS = 'post';
+  static const POST_COMMENT = 'post/comment';
 
   /// HEADERS
   static const CONTENT_TYPE = 'Content-Type';

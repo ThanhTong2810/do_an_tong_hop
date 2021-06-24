@@ -1,5 +1,6 @@
 import 'package:do_an_tong_hop/screen/post/setting_post_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class PostPage extends StatefulWidget {
   @override
@@ -18,13 +19,13 @@ class _PostPageState extends State<PostPage> {
         leading: IconButton(
           icon: Icon(Icons.close),
           onPressed: () {
-            Navigator.pop(context);
+            Get.back();
           },
         ),
         actions: [
           FlatButton(
               onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => SettingPostPage()));
+                Get.to(()=>SettingPostPage());
               },
               child: Text('Next', style: Theme.of(context).primaryTextTheme.subtitle1?.copyWith(
                 color: Colors.blue

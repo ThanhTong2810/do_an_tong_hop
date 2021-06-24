@@ -2,6 +2,7 @@ import 'package:do_an_tong_hop/controller/chat_controller.dart';
 import 'package:do_an_tong_hop/controller/posts_controller.dart';
 import 'package:do_an_tong_hop/controller/user_controller.dart';
 import 'package:do_an_tong_hop/helpers/notification_helper.dart';
+import 'package:do_an_tong_hop/screen/post/setting_post_page.dart';
 import 'package:do_an_tong_hop/theme/icons_app.dart';
 import 'package:do_an_tong_hop/screen/account/account_page.dart';
 import 'package:do_an_tong_hop/screen/activity/activity_page.dart';
@@ -115,9 +116,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
                     tabsIcons[2],
                     2 == _currentTabIndex,
                     onPress: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => PostPage())
-                      );
+                      Get.to(()=>SettingPostPage());
                     }
                 )),
                 Expanded(child: BottomNavigationItem(
