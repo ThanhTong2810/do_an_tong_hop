@@ -41,7 +41,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
   @override
   void initState() {
     NotificationHelper.handleNotification(context);
-    onWidgetBuildDone(getSuggestedAndFollow);
+    getSuggestedAndFollow();
     super.initState();
   }
 

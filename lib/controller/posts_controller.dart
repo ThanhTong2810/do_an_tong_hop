@@ -7,6 +7,7 @@ import 'package:do_an_tong_hop/api/app_api/api_post_comment.dart';
 import 'package:do_an_tong_hop/api/app_api/api_post_save_posts.dart';
 import 'package:do_an_tong_hop/controller/user_controller.dart';
 import 'package:do_an_tong_hop/helpers/cloudinary_helper.dart';
+import 'package:do_an_tong_hop/models/posts_model/comment_model.dart';
 import 'package:do_an_tong_hop/models/posts_model/posts_model.dart';
 import 'package:flutter_absolute_path/flutter_absolute_path.dart';
 import 'package:get/get.dart';
@@ -22,8 +23,7 @@ class PostsController extends GetxController{
     ApiResponse response =
         await GetPostsApi().getPostsApi(id: userController.user.value.id);
     List posts = response.data;
-    posts.map((e) => print(e)).toList();
-    listPosts.assignAll(posts.map((e) => PostsModel.fromJson(e)).toList());x
+    listPosts.assignAll(posts.map((e) => PostsModel.fromJson(e)).toList());
     listPosts.sort((a,b) => b.timeStamp.compareTo(a.timeStamp));
   }
 
