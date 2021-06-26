@@ -4,6 +4,7 @@ import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:do_an_tong_hop/api/api_response.dart';
 import 'package:do_an_tong_hop/api/app_api/api_get_posts.dart';
 import 'package:do_an_tong_hop/api/app_api/api_post_comment.dart';
+import 'package:do_an_tong_hop/api/app_api/api_post_reply_comment.dart';
 import 'package:do_an_tong_hop/api/app_api/api_post_save_posts.dart';
 import 'package:do_an_tong_hop/controller/user_controller.dart';
 import 'package:do_an_tong_hop/helpers/cloudinary_helper.dart';
@@ -18,6 +19,9 @@ class PostsController extends GetxController{
   RxList<PostsModel> listPosts = RxList<PostsModel>([]);
   RxList<File> imagesPicker = RxList<File>([]);
   Rx<bool> isShowLoading = Rx<bool>(false);
+  Rx<bool> isReply = Rx<bool>(false);
+  Rx<String> idComment = Rx<String>(null);
+  Rx<String> idOwnerComment = Rx<String>(null);
 
   getPosts(UserController userController) async{
     ApiResponse response =
@@ -66,9 +70,12 @@ class PostsController extends GetxController{
   }
 
   addComment({UserController userController, String idPost, String idOwner, String contentHtml, List<String> mentionList}) async{
-    isShowLoading.value = true;
     ApiResponse response =
         await CommentPostsApi().commentPostsApi(idAccount: userController.user.value.id, idOwner: idOwner, idPost: idPost, contentHtml: contentHtml, mentionList: mentionList);
-    isShowLoading.value = false;
+  }
+
+  addReplyComment(UserController userController, String idOwner, String idPost, String idComment, String contentHtml, List<String> mentionList) async{
+    ApiResponse response =
+        await ReplyCommentApi().replyCommentApi(idAccount: userController.user.value.id,idOwner: idOwner,idPost: idPost,idComment: idComment,mentionList: mentionList,contentHtml: contentHtml);
   }
 }

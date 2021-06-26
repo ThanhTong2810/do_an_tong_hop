@@ -1,4 +1,5 @@
 class CommentModel {
+  final String id;
   final String content;
   final String idAccount;
   final int timeStamp;
@@ -6,10 +7,11 @@ class CommentModel {
   final String accountImage;
   final List<ReplyModel> reply;
 
-  CommentModel(this.content, this.idAccount, this.timeStamp, this.username, this.accountImage, this.reply);
+  CommentModel(this.id, this.content, this.idAccount, this.timeStamp, this.username, this.accountImage, this.reply);
 
   CommentModel.fromJson(Map<dynamic, dynamic> json)
-      : idAccount = json['id_account'] ?? "",
+      : id = json['id']??'',
+        idAccount = json['id_account'] ?? "",
         content = json['content'] ?? '',
         timeStamp = json['timestamp']??0,
         username = json['username']??'',
@@ -17,6 +19,7 @@ class CommentModel {
         reply = (json['reply'] as List ?? []).map((e) => ReplyModel.fromJson(e)).toList();
 
   Map<dynamic, dynamic> toMap() => {
+    "id":id??'',
     'id_account': idAccount ?? '',
     'content': content ?? '',
     'timestamp': timeStamp??0,
@@ -31,17 +34,17 @@ class ReplyModel {
   final String idAccount;
   final int timeStamp;
   final String username;
-  final String imageSrc;
+  final String accountImage;
   final String id;
 
-  ReplyModel(this.content, this.idAccount, this.timeStamp, this.username, this.imageSrc, this.id);
+  ReplyModel(this.content, this.idAccount, this.timeStamp, this.username, this.accountImage, this.id);
 
   ReplyModel.fromJson(Map<dynamic, dynamic> json)
       : idAccount = json['id_account'] ?? "",
         content = json['content'] ?? '',
         timeStamp = json['timestamp']??0,
         username = json['username']??'',
-        imageSrc = json['imageSrc']??'',
+        accountImage = json['accountImage']??'',
         id = json['id']??'';
 
   Map<dynamic, dynamic> toMap() => {
@@ -49,7 +52,7 @@ class ReplyModel {
     'content': content ?? '',
     'timestamp': timeStamp??0,
     'username': username??'',
-    'imageSrc': imageSrc??'',
+    'accountImage': accountImage??'',
     "id":id??''
   };
 }

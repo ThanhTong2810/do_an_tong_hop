@@ -8,9 +8,19 @@ class PostsModel {
   final String idPost;
   final List<dynamic> imageSrc;
   final int timeStamp;
-  List<CommentModel> comments;
+  final List<CommentModel> comments;
+  final String username;
+  final String accountImage;
 
-  PostsModel(this.content, this.idAccount, this.idPost, this.imageSrc, this.timeStamp, this.comments);
+  PostsModel(
+      {this.content,
+      this.idAccount,
+      this.idPost,
+      this.imageSrc,
+      this.timeStamp,
+      this.comments,
+      this.username,
+      this.accountImage});
 
   PostsModel.fromJson(Map<dynamic, dynamic> json)
       : idAccount = json['id_account'] ?? "",
@@ -18,25 +28,17 @@ class PostsModel {
         imageSrc = json['imageSrc'] ?? [],
         content = json['content'] ?? '',
         timeStamp = json['timestamp']??0,
-        comments = (json['comments'] as List ?? []).map((e) => CommentModel.fromJson(e)).toList();
+        comments = (json['comments'] as List ?? []).map((e) => CommentModel.fromJson(e)).toList(),
+        username = json['username']??'',
+        accountImage = json['accountImage']??'';
   Map<dynamic, dynamic> toMap() => {
     'id_account': idAccount ?? '',
     'id_post': idPost ?? '',
     'content': content ?? '',
     'imageSrc': imageSrc ?? [],
     'timestamp': timeStamp??0,
-    'comments':comments.map((e) => e.toMap()).toList()??[]
+    'comments':comments.map((e) => e.toMap()).toList()??[],
+    'username': username??'',
+    "accountImage": accountImage??''
   };
-
-  static getListCommentModel(List<dynamic> comments){
-    List<CommentModel> commentsModel = [];
-    for(var comment in comments){
-      if(comment.runtimeType.toString()=='List<dynamic>'){
-        comment.map((object)=>commentsModel.add(CommentModel.fromJson(object))).toList();
-      }else{
-        commentsModel.add(CommentModel.fromJson(comment));
-      }
-    }
-    return commentsModel;
-  }
 }

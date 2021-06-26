@@ -15,6 +15,7 @@ class DoAnApi {
   static const GET_POSTS = 'post';
   static const POST_SAVE_POSTS = 'post';
   static const POST_COMMENT = 'post/comment';
+  static const REPLY_COMMENT = 'post/replyComment';
 
   /// HEADERS
   static const CONTENT_TYPE = 'Content-Type';

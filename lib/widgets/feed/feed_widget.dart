@@ -40,10 +40,10 @@ class _FeedWidgetState extends State<FeedWidget> {
                           ).copyWith(right: 0),
                           child: Row(
                             children: <Widget>[
-                              // CircleAvatar(
-                              //     radius: 16,
-                              //     backgroundImage : AssetImage('lib/res/images/logo.jpg')
-                              // ),
+                              CircleAvatar(
+                                  radius: 16,
+                                  backgroundImage : NetworkImage(post.accountImage)
+                              ),
                               SizedBox(),
                               Expanded(
                                 child: Padding(
@@ -59,10 +59,10 @@ class _FeedWidgetState extends State<FeedWidget> {
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyText2,
-                                        child: Text('Duong Thanh Tong'),
+                                        child: Text(post.username),
                                       ),
                                       Text(
-                                        'Ho Chi Minh, Viet Nam',
+                                        'Viet Nam',
                                         style:
                                             Theme.of(context).textTheme.caption,
                                       )
@@ -188,7 +188,7 @@ class _FeedWidgetState extends State<FeedWidget> {
                                 child: RichText(
                                   text: TextSpan(children: [
                                     TextSpan(
-                                        text: 'Duong Thanh Tong',
+                                        text: post.username,
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyText2),

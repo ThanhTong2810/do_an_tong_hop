@@ -1,8 +1,10 @@
 import 'package:do_an_tong_hop/controller/posts_controller.dart';
 import 'package:do_an_tong_hop/controller/user_controller.dart';
 import 'package:do_an_tong_hop/models/posts_model/comment_model.dart';
+import 'package:do_an_tong_hop/theme/dimens.dart';
 import 'package:do_an_tong_hop/theme/icons_app.dart';
 import 'package:do_an_tong_hop/theme/images_app.dart';
+import 'package:do_an_tong_hop/utils/utils.dart';
 import 'package:do_an_tong_hop/widgets/loading_container.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,12 +27,21 @@ class _CommentPageState extends State<CommentPage> {
   final UserController userController = Get.find();
   final PostsController postsController = Get.find();
 
+  FocusNode focusNode = FocusNode();
   TextEditingController _comment = TextEditingController();
 
   @override
   void initState() {
-    widget.comments.sort((a,b)=>b.timeStamp.compareTo(a.timeStamp));
+    postsController.idComment.value = null;
+    postsController.idOwnerComment.value = null;
+    widget.comments.sort((a,b)=>a.timeStamp.compareTo(b.timeStamp));
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    focusNode.dispose();
+    super.dispose();
   }
 
   @override
@@ -54,52 +65,110 @@ class _CommentPageState extends State<CommentPage> {
                       vertical: 16,
                       horizontal: 16
                   ),
-                  child: Row(
-                    children: [
-                      CircleAvatar(
-                        backgroundImage: NetworkImage(comment.accountImage),
-                        radius: 18,
-                      ),
-                      Expanded(child: Container(
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 16),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              RichText(
-                                text: TextSpan(
-                                    children: [
-                                      TextSpan(text: comment.username, style: Theme.of(context).textTheme.bodyText2),
-                                      TextSpan(text: '   ${comment.content}', style: Theme.of(context).textTheme.bodyText1),
-                                    ]
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(top: 4),
-                                child: DefaultTextStyle(
-                                    style: Theme.of(context).textTheme.caption.copyWith(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w400
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Text('5d'),
-                                        SizedBox(width: 24,),
-                                        Text('3 likes'),
-                                        SizedBox(width: 24,),
-                                        Text('Reply')
-                                      ],
-                                    )),
-                              )
-                            ],
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Row(
+                        children: [
+                          CircleAvatar(
+                            backgroundImage: NetworkImage(comment.accountImage),
+                            radius: 18,
                           ),
+                          Expanded(child: Container(
+                            child: Padding(
+                              padding: EdgeInsets.only(left: 16),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  RichText(
+                                    text: TextSpan(
+                                        children: [
+                                          TextSpan(text: comment.username, style: Theme.of(context).textTheme.bodyText2),
+                                          TextSpan(text: '   ${comment.content}', style: Theme.of(context).textTheme.bodyText1),
+                                        ]
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(top: 4),
+                                    child: DefaultTextStyle(
+                                        style: Theme.of(context).textTheme.caption.copyWith(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w400
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Text('5d'),
+                                            SizedBox(width: 24,),
+                                            Text('3 likes'),
+                                            SizedBox(width: 24,),
+                                            GestureDetector(
+                                              child: Text('Reply'),
+                                              onTap: (){
+                                                focusNode.requestFocus();
+                                                postsController.isReply.value = true;
+                                                postsController.idComment.value = comment.id;
+                                                postsController.idOwnerComment.value = comment.idAccount;
+                                              },
+                                            ),
+                                          ],
+                                        )),
+                                  )
+                                ],
+                              ),
+                            ),
+                          )),
+                          Container(
+                            padding: EdgeInsets.all(8),
+                            child: Icon(Icons.favorite, size: 16,),
+                          )
+                        ],
+                      ),
+                      Dimens.height10,
+                      comment.reply.isEmpty?SizedBox():Padding(
+                        padding: EdgeInsets.only(left: getScreenWidth(context)/8),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: comment.reply.map((reply){
+                            return Padding(
+                              padding:  EdgeInsets.only(bottom: 10.0),
+                              child: Row(
+                                children: [
+                                  CircleAvatar(
+                                    backgroundImage: NetworkImage(reply.accountImage),
+                                    radius: 18,
+                                  ),
+                                  Expanded(child: Container(
+                                    child: Padding(
+                                      padding: EdgeInsets.only(left: 16),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          RichText(
+                                            text: TextSpan(
+                                                children: [
+                                                  TextSpan(text: reply.username, style: Theme.of(context).textTheme.bodyText2),
+                                                  TextSpan(text: '   ${reply.content}', style: Theme.of(context).textTheme.bodyText1),
+                                                ]
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  )),
+                                  Container(
+                                    padding: EdgeInsets.all(8),
+                                    child: Icon(Icons.favorite, size: 16,),
+                                  )
+                                ],
+                              ),
+                            );
+                          }).toList(),
                         ),
-                      )),
-                      Container(
-                        padding: EdgeInsets.all(8),
-                        child: Icon(Icons.favorite, size: 16,),
-                      )
+                      ),
                     ],
                   ),
                 );
@@ -130,9 +199,10 @@ class _CommentPageState extends State<CommentPage> {
                       child: Padding(
                         padding: EdgeInsets.only(left: 16, right: 8),
                         child: TextField(
+                          focusNode: focusNode,
                           controller: _comment,
                           decoration: InputDecoration(
-                              hintText: 'Comment',
+                              hintText: postsController.isReply.value == true?'Reply':'Comment',
                               border: InputBorder.none
                           ),
                         ),
@@ -141,10 +211,24 @@ class _CommentPageState extends State<CommentPage> {
                     InkWell(
                       onTap: () async{
                         if(_comment.text.isNotEmpty){
-                          await postsController.addComment(userController: userController, idPost: widget.idPost, idOwner: widget.idOwner, mentionList: [], contentHtml: _comment.text);
-                          Get.back();
-                          _comment.text='';
-                          await postsController.getPosts(userController);
+                          if(postsController.isReply.value == true){
+                            postsController.isShowLoading.value = true;
+                            await postsController.addReplyComment(userController, postsController.idOwnerComment.value, widget.idPost, postsController.idComment.value, _comment.text, []);
+                            await postsController.getPosts(userController);
+                            Get.back();
+                            postsController.idComment.value = null;
+                            postsController.idOwnerComment.value = null;
+                            postsController.isReply.value = false;
+                            postsController.isShowLoading.value = false;
+                          }else{
+                            postsController.isShowLoading.value = true;
+                            await postsController.addComment(userController: userController, idPost: widget.idPost, idOwner: widget.idOwner, mentionList: [], contentHtml: _comment.text);
+                            await postsController.getPosts(userController);
+                            postsController.isShowLoading.value = false;
+                            Get.back();
+                            _comment.text='';
+
+                          }
                         }
                       },
                       child: Container(
