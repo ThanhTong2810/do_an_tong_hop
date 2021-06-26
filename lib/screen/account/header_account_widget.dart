@@ -1,5 +1,6 @@
 import 'package:do_an_tong_hop/controller/user_controller.dart';
 import 'package:do_an_tong_hop/screen/account/follow_page.dart';
+import 'package:do_an_tong_hop/widgets/feed/feed_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:developer' as developer;

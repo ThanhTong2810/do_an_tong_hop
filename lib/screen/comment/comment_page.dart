@@ -57,6 +57,7 @@ class _CommentPageState extends State<CommentPage> {
             ],
           ),
           body: SingleChildScrollView(
+            reverse: true,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: widget.comments.map((comment){

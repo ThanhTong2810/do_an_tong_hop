@@ -132,7 +132,6 @@ class UserController extends GetxController {
     );
     List suggested = response.data;
     listSuggestedAccount.assignAll(suggested.map((e) => User.fromJson(e)).toList());
-
   }
 
   addFollow(String myId, String followingId) async{

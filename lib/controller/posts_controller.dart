@@ -16,7 +16,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 
 class PostsController extends GetxController{
-  RxList<PostsModel> listPosts = RxList<PostsModel>([]);
+  RxList<PostsModel> newFeedPosts = RxList<PostsModel>([]);
   RxList<File> imagesPicker = RxList<File>([]);
   Rx<bool> isShowLoading = Rx<bool>(false);
   Rx<bool> isReply = Rx<bool>(false);
@@ -27,8 +27,7 @@ class PostsController extends GetxController{
     ApiResponse response =
         await GetPostsApi().getPostsApi(id: userController.user.value.id);
     List posts = response.data;
-    listPosts.assignAll(posts.map((e) => PostsModel.fromJson(e)).toList());
-    listPosts.sort((a,b) => b.timeStamp.compareTo(a.timeStamp));
+    newFeedPosts.assignAll(posts.map((e) => PostsModel.fromJson(e)).toList());
   }
 
   Future choosePhoto() async {

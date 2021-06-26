@@ -24,13 +24,13 @@ class _FeedWidgetState extends State<FeedWidget> {
             border: Border(top: Divider.createBorderSide(context))),
         padding: EdgeInsets.only(bottom: 8),
         child: Obx(() {
-          return postsController.listPosts.isEmpty
+          return postsController.newFeedPosts.isEmpty
               ? Center(
                   child: RefreshProgressIndicator(),
                 )
               : Column(
                   mainAxisSize: MainAxisSize.min,
-                  children: postsController.listPosts.map((post) {
+                  children: postsController.newFeedPosts.map((post) {
                     return Column(
                       children: [
                         Container(
