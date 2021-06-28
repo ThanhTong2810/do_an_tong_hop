@@ -158,6 +158,7 @@ class _SignInPageState extends State<SignInPage> {
           ),
         ),
         isLoading: userController.isShowLoading.value,
+        isShowIndicator: true,
       );
     });
   }

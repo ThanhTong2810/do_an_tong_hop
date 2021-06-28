@@ -1,5 +1,5 @@
 import 'package:do_an_tong_hop/controller/user_controller.dart';
-import 'package:do_an_tong_hop/models/user/user_get_account_by_id.dart';
+import 'package:do_an_tong_hop/models/user/user.dart';
 import 'package:do_an_tong_hop/screen/chats/message_screen.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,7 +10,7 @@ class ChatController extends GetxController{
   RxList<dynamic> listGroupChat = RxList<dynamic>([]);
   Rx<String> roomSelected = Rx<String>(null);
   RxList<bool> listCheck = RxList<bool>([]);
-  RxList<UserGetById> listCheckCreateGroup = RxList<UserGetById>([]);
+  RxList<UserFollow> listCheckCreateGroup = RxList<UserFollow>([]);
 
   getAllRoomContainMyId(String myId) async{
    DataSnapshot db =await  FirebaseDatabase.instance.reference().child("chat_info").orderByChild('containId/$myId/id').equalTo(myId).once();
@@ -24,16 +24,16 @@ class ChatController extends GetxController{
    }
   }
 
-  createNewRoomChat(UserGetById userGetById, UserController userController) async{
+  createNewRoomChat(UserFollow user, UserController userController) async{
     roomSelected.value = null;
     String idRoom = FirebaseDatabase.instance.reference().child("chat_info").push().key;
     Map containId ={};
     containId.addAll({
-      "${userGetById.id}":{
-        "id":userGetById.id,
-        "imageSrc": userGetById.imgSrc,
-        "name": userGetById.name,
-        "username":userGetById.userName
+      "${user.id}":{
+        "id":user.idAccount,
+        "imageSrc": user.imageSrc,
+        "name": user.name,
+        "username":user.username
       },
     });
     containId.addAll({
@@ -56,7 +56,7 @@ class ChatController extends GetxController{
     await getAllRoomContainMyId(userController.user.value.id);
   }
 
-  createNewGroupChat(List<UserGetById> userGetById, UserController userController) async{
+  createNewGroupChat(List<UserFollow> userGetById, UserController userController) async{
     roomSelected.value = null;
     String idRoom = FirebaseDatabase.instance.reference().child("chat_info").push().key;
     Map containId ={};
@@ -64,9 +64,9 @@ class ChatController extends GetxController{
       containId.addAll({
         "${user.id}":{
           "id":user.id,
-          "image": user.imgSrc,
+          "image": user.imageSrc,
           "name": user.name,
-          "username":user.userName
+          "username":user.username
         },
       });
     });

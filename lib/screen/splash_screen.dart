@@ -80,18 +80,19 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   loadUserData() async{
+    userController.user.value = null;
     final openBox = await Hive.openBox('USER');
     if(openBox.get('email') != null && openBox.get('password') != null){
         await userController.signIn(openBox.get('email'), openBox.get('password'));
         if(userController.user.value!=null){
           userController.errorText.value = '';
-          await Get.off(()=>BottomNavPage());
+          Get.off(()=>BottomNavPage());
         }else{
-          openBox.clear();
-          await Get.to(()=>SignInPage());
+          await openBox.clear();
+          Get.to(()=>SignInPage());
         }
     }else{
-      await Get.to(()=>SignInPage());
+      Get.to(()=>SignInPage());
     }
   }
 }

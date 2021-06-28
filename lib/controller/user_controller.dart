@@ -13,7 +13,6 @@ import 'package:do_an_tong_hop/api/app_api/api_put_log_out.dart';
 import 'package:do_an_tong_hop/api/app_api/api_put_update_avatar.dart';
 import 'package:do_an_tong_hop/helpers/cloudinary_helper.dart';
 import 'package:do_an_tong_hop/models/user/user.dart';
-import 'package:do_an_tong_hop/models/user/user_get_account_by_id.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
@@ -28,10 +27,6 @@ class UserController extends GetxController {
   ImagePicker imagePicker = ImagePicker();
 
   RxList<User> listSuggestedAccount = RxList<User>([]);
-
-  RxList<UserGetById> listFollowers = RxList<UserGetById>([]);
-  RxList<UserGetById> listFollowing = RxList<UserGetById>([]);
-  List<UserGetById> listUser = [];
 
   signIn(String email, String password) async {
     isShowLoading.value = true;
@@ -147,24 +142,9 @@ class UserController extends GetxController {
     ApiResponse response = await GetAccountByIdOrUserNameApi().getAccountByIdOrUserNameApi(
         id: id,
     );
-    UserGetById user = UserGetById.fromJson(response.data);
+    User user = User.fromJson(response.data);
+    print(user.toMap());
     return user;
-  }
-
-  getListFollowers(){
-    listFollowers.clear();
-    user.value.followers.forEach((key, value) async{
-      UserGetById userFollowers = await getAccountById(value['id_account']);
-      listFollowers.add(userFollowers);
-    });
-  }
-
-  getListFollowing() {
-    listFollowing.clear();
-    user.value.following.forEach((key, value) async{
-      UserGetById userFollowers = await getAccountById(value['id_account']);
-      listFollowing.add(userFollowers);
-    });
   }
 
   unFollow(String myId, String followingId) async{

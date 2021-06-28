@@ -2,7 +2,6 @@ import 'package:do_an_tong_hop/controller/chat_controller.dart';
 import 'package:do_an_tong_hop/controller/user_controller.dart';
 import 'package:do_an_tong_hop/models/chat/chat_messages_model.dart';
 import 'package:do_an_tong_hop/models/individual_chat/individual_chat.dart';
-import 'package:do_an_tong_hop/models/user/user_get_account_by_id.dart';
 import 'package:do_an_tong_hop/theme/colors.dart';
 import 'package:do_an_tong_hop/theme/dimens.dart';
 import 'package:do_an_tong_hop/theme/icons_app.dart';

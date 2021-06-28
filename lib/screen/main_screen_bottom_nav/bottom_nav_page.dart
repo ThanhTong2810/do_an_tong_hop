@@ -47,12 +47,8 @@ class _BottomNavPageState extends State<BottomNavPage> {
 
   getSuggestedAndFollow() async{
     userController.listSuggestedAccount.clear();
-    userController.listFollowers.clear();
-    userController.listFollowing.clear();
     await postsController.getPosts(userController);
     await userController.getSuggestedAccount(userController.user.value.id);
-    await userController.getListFollowers();
-    await userController.getListFollowing();
     await chatController.getAllRoomContainMyId(userController.user.value.id);
   }
 

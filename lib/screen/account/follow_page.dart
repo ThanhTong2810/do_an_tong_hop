@@ -1,5 +1,5 @@
 import 'package:do_an_tong_hop/controller/user_controller.dart';
-import 'package:do_an_tong_hop/models/user/user_get_account_by_id.dart';
+import 'package:do_an_tong_hop/models/user/user.dart';
 import 'package:do_an_tong_hop/theme/colors.dart';
 import 'package:do_an_tong_hop/theme/dimens.dart';
 import 'package:do_an_tong_hop/utils/utils.dart';
@@ -62,20 +62,20 @@ class _FollowPageState extends State<FollowPage> {
                   child: TabBarView(
                     children: <Widget>[
                       ///Followers
-                      userController.listFollowers.isNotEmpty?ListView(
+                      userController.user.value.followers.isNotEmpty?ListView(
                         padding: EdgeInsets.zero,
-                        children: userController.listFollowers.map((followers){
+                        children: userController.user.value.followers.map((followers){
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Row(
                               children: <Widget>[
                                 CircleAvatar(
                                   radius: 20,
-                                  backgroundImage: NetworkImage(followers.imgSrc),
+                                  backgroundImage: NetworkImage(followers.imageSrc),
                                 ),
                                 Dimens.width10,
                                 AppText(
-                                  text: '${followers.userName}',
+                                  text: '${followers.username}',
                                   color: AppColors.black,
                                 ),
                               ],
@@ -100,8 +100,8 @@ class _FollowPageState extends State<FollowPage> {
                                 text: 'List Following',
                                 color: AppColors.black,
                               ),
-                              userController.listFollowing.isNotEmpty?Column(
-                                children: userController.listFollowing.map((following){
+                              userController.user.value.following.isNotEmpty?Column(
+                                children: userController.user.value.following.map((following){
                                   return Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Row(
@@ -111,11 +111,11 @@ class _FollowPageState extends State<FollowPage> {
                                             children: <Widget>[
                                               CircleAvatar(
                                                 radius: 20,
-                                                backgroundImage: NetworkImage(following.imgSrc),
+                                                backgroundImage: NetworkImage(following.imageSrc),
                                               ),
                                               Dimens.width10,
                                               AppText(
-                                                text: '${following.userName}',
+                                                text: '${following.username}',
                                                 color: AppColors.black,
                                               ),
                                             ],
@@ -137,7 +137,7 @@ class _FollowPageState extends State<FollowPage> {
                                           ),
                                           onTap: ()async{
                                             await userController.unFollow(userController.user.value.id, following.id);
-                                            userController.listFollowing.removeWhere((element) => element.id == following.id);
+                                            userController.user.value.following.removeWhere((element) => element.id == following.id);
                                           },
                                         ),
                                       ],
@@ -191,8 +191,8 @@ class _FollowPageState extends State<FollowPage> {
                                           ),
                                           onTap: ()async{
                                             await userController.addFollow(userController.user.value.id, suggested.id);
-                                            UserGetById user = await userController.getAccountById(suggested.id);
-                                            userController.listFollowing.add(user);
+                                            UserFollow user = UserFollow(suggested.id, suggested.id, suggested.name, suggested.imgSrc, suggested.userName, suggested.email);
+                                            userController.user.value.following.add(user);
                                             userController.listSuggestedAccount.removeWhere((element) => element.id == suggested.id);
                                           },
                                         ),

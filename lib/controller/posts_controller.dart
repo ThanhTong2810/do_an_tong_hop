@@ -28,6 +28,7 @@ class PostsController extends GetxController{
         await GetPostsApi().getPostsApi(id: userController.user.value.id);
     List posts = response.data;
     newFeedPosts.assignAll(posts.map((e) => PostsModel.fromJson(e)).toList());
+    newFeedPosts.sort((a,b)=>b.timeStamp.compareTo(a.timeStamp));
   }
 
   Future choosePhoto() async {

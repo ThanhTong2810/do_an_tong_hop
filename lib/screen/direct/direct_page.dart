@@ -52,7 +52,7 @@ class _DirectPageState extends State<DirectPage> {
                   onTap: () {
                     chatController.listCheckCreateGroup.clear();
                     chatController.listCheck.assignAll(List<bool>.filled(
-                        userController.listFollowing.length, false));
+                        userController.user.value.following.length, false));
                     addGroupDialog();
                   },
                 ),
@@ -72,17 +72,17 @@ class _DirectPageState extends State<DirectPage> {
                   ),
                   Column(
                     mainAxisSize: MainAxisSize.min,
-                    children: userController.listFollowing.map((following) {
+                    children: userController.user.value.following.map((following) {
                       return GestureDetector(
                         child: Card(
                           elevation: 0,
                           child: ListTile(
                             leading: CircleAvatar(
                               radius: 20,
-                              backgroundImage: NetworkImage(following.imgSrc),
+                              backgroundImage: NetworkImage(following.imageSrc),
                             ),
                             title: AppText(
-                              text: '${following.userName}',
+                              text: '${following.username}',
                               color: AppColors.black,
                             ),
                             trailing: SvgPicture.asset(
@@ -113,8 +113,8 @@ class _DirectPageState extends State<DirectPage> {
                             await chatController.createNewRoomChat(
                                 following, userController);
                             Get.to(() => MessagesScreen(
-                                name: following.userName,
-                                imgSrc: following.imgSrc,
+                                name: following.username,
+                                imgSrc: following.imageSrc,
                                 isGroup: false));
                           } else {
                             print('Already Has Room');
@@ -200,7 +200,7 @@ class _DirectPageState extends State<DirectPage> {
                 children: <Widget>[
                   Column(
                     mainAxisSize: MainAxisSize.min,
-                    children: userController.listFollowing.map((following) {
+                    children: userController.user.value.following.map((following) {
                       return Row(
                         children: <Widget>[
                           Expanded(
@@ -210,10 +210,10 @@ class _DirectPageState extends State<DirectPage> {
                                 leading: CircleAvatar(
                                   radius: 20,
                                   backgroundImage:
-                                      NetworkImage(following.imgSrc),
+                                      NetworkImage(following.imageSrc),
                                 ),
                                 title: AppText(
-                                  text: '${following.userName}',
+                                  text: '${following.username}',
                                   color: AppColors.black,
                                 ),
                               ),
@@ -221,18 +221,18 @@ class _DirectPageState extends State<DirectPage> {
                           ),
                           Checkbox(
                             value: chatController.listCheck[userController
-                                .listFollowing
+                                .user.value.following
                                 .indexOf(following)],
                             onChanged: (value) {
                               if (value == true) {
                                 chatController.listCheck[userController
-                                    .listFollowing
+                                    .user.value.following
                                     .indexOf(following)] = true;
                                 chatController.listCheckCreateGroup
                                     .add(following);
                               } else {
                                 chatController.listCheck[userController
-                                    .listFollowing
+                                    .user.value.following
                                     .indexOf(following)] = false;
                                 chatController.listCheckCreateGroup.removeWhere(
                                     (element) => element.id == following.id);
