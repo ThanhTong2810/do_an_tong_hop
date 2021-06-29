@@ -41,7 +41,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
   @override
   void initState() {
     NotificationHelper.handleNotification(context);
-    getSuggestedAndFollow();
+    onWidgetBuildDone(getSuggestedAndFollow);
     super.initState();
   }
 
@@ -129,6 +129,8 @@ class _BottomNavPageState extends State<BottomNavPage> {
                     tabsIcons[4],
                     4 == _currentTabIndex,
                     onPress: () {
+                      userController.userAnother.value = null;
+                      userController.userDisplayPersonal.value = userController.user.value;
                       setState(() {
                         _currentTabIndex = 4;
                         _pageController.jumpToPage(3);

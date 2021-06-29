@@ -37,7 +37,7 @@ class _HeaderAccountWidgetState extends State<HeaderAccountWidget> {
                     BigAvatarUserWidget(),
                     Padding(
                       padding: EdgeInsets.only(top: 8),
-                      child: Text('${userController.user.value.userName}', style: Theme.of(context).textTheme.bodyText2,),
+                      child: Text('${userController.userDisplayPersonal.value.userName}', style: Theme.of(context).textTheme.bodyText2,),
                     )
                   ],
                 ),
@@ -68,7 +68,7 @@ class _HeaderAccountWidgetState extends State<HeaderAccountWidget> {
             padding: EdgeInsets.symmetric(
               horizontal: 16,
             ),
-            child: Text('Mastering B&W: The Art of B&W \nEditor: ${userController.user.value.email} \nMod: ${userController.user.value.email} \nFounder: ${userController.user.value.email}',
+            child: Text('Mastering B&W: The Art of B&W \nEditor: ${userController.userDisplayPersonal.value.email} \nMod: ${userController.userDisplayPersonal.value.email} \nFounder: ${userController.userDisplayPersonal.value.email}',
               style: Theme.of(context).textTheme.bodyText1,),
           ),
           Container(

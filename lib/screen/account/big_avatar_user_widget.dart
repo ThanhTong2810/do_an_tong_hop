@@ -24,7 +24,7 @@ class _BigAvatarUserWidgetState extends State<BigAvatarUserWidget> {
         child: Stack(
           children: <Widget>[
             Positioned.fill(child: CircleAvatar(
-              backgroundImage: NetworkImage(userController.user.value.imgSrc),
+              backgroundImage: NetworkImage(userController.userDisplayPersonal.value.imgSrc),
             )),
             Positioned(
               child: ClipOval(

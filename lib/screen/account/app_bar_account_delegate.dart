@@ -3,6 +3,7 @@ import 'dart:developer' as developer;
 import 'package:do_an_tong_hop/controller/user_controller.dart';
 import 'package:do_an_tong_hop/screen/sign_in_page/sign_in_page.dart';
 import 'package:do_an_tong_hop/theme/colors.dart';
+import 'package:do_an_tong_hop/theme/dimens.dart';
 import 'package:do_an_tong_hop/widgets/app_text.dart';
 import 'package:do_an_tong_hop/widgets/bottomsheet/bottom_sheet_action.dart';
 import 'package:flutter/cupertino.dart';
@@ -25,8 +26,12 @@ class AppBarAccountDelegate extends SliverPersistentHeaderDelegate {
           height: kToolbarHeight + topPadding,
           padding: EdgeInsets.only(top: topPadding),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
+              userController.userDisplayPersonal.value.id == userController.user.value.id ? SizedBox() : IconButton(icon: Icon(Icons.arrow_back_ios_sharp), onPressed: (){
+                Get.back();
+              }),
+              Dimens.height10,
               Container(
                 padding: EdgeInsets.symmetric(
                     vertical: 8,
@@ -34,12 +39,13 @@ class AppBarAccountDelegate extends SliverPersistentHeaderDelegate {
                 ),
                 child: Row(
                   children: <Widget>[
-                    Text('${userController.user.value.userName}', style: Theme.of(context).primaryTextTheme.subtitle2,),
+                    Text('${userController.userDisplayPersonal.value.userName}', style: Theme.of(context).primaryTextTheme.subtitle2,),
                     Icon(Icons.keyboard_arrow_down, size: 16,)
                   ],
                 ),
               ),
-              IconButton(
+              Expanded(child: SizedBox()),
+              userController.userDisplayPersonal.value.id == userController.user.value.id ?IconButton(
                 icon: Icon(Icons.menu),
                 onPressed: () async{
                   await showModalBottomSheet(
@@ -75,7 +81,7 @@ class AppBarAccountDelegate extends SliverPersistentHeaderDelegate {
                     },
                   );
                 },
-              )
+              ):SizedBox()
             ],
           ),
         ),

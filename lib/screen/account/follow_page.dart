@@ -33,7 +33,7 @@ class _FollowPageState extends State<FollowPage> {
             elevation: 0,
             leading: GestureDetector(child: Icon(Icons.arrow_back_ios_sharp,color: AppColors.black,),onTap: (){Get.back();},),
             title: AppText(
-              text: '${userController.user.value.userName}',
+              text: '${userController.userDisplayPersonal.value.userName}',
               color: AppColors.black,
             ),
           ),
@@ -62,9 +62,9 @@ class _FollowPageState extends State<FollowPage> {
                   child: TabBarView(
                     children: <Widget>[
                       ///Followers
-                      userController.user.value.followers.isNotEmpty?ListView(
+                      userController.userDisplayPersonal.value.followers.isNotEmpty?ListView(
                         padding: EdgeInsets.zero,
-                        children: userController.user.value.followers.map((followers){
+                        children: userController.userDisplayPersonal.value.followers.map((followers){
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Row(
@@ -100,8 +100,8 @@ class _FollowPageState extends State<FollowPage> {
                                 text: 'List Following',
                                 color: AppColors.black,
                               ),
-                              userController.user.value.following.isNotEmpty?Column(
-                                children: userController.user.value.following.map((following){
+                              userController.userDisplayPersonal.value.following.isNotEmpty?Column(
+                                children: userController.userDisplayPersonal.value.following.map((following){
                                   return Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Row(
@@ -121,7 +121,7 @@ class _FollowPageState extends State<FollowPage> {
                                             ],
                                           ),
                                         ),
-                                        GestureDetector(
+                                        userController.userDisplayPersonal.value.id == userController.user.value.id?GestureDetector(
                                           child: Container(
                                             decoration: BoxDecoration(
                                                 border: Border.all(color: AppColors.clickableText),
@@ -136,10 +136,11 @@ class _FollowPageState extends State<FollowPage> {
                                             ),
                                           ),
                                           onTap: ()async{
-                                            await userController.unFollow(userController.user.value.id, following.id);
+                                            await userController.unFollow(userController.userDisplayPersonal.value.id, following.id);
                                             userController.user.value.following.removeWhere((element) => element.id == following.id);
+                                            userController.userDisplayPersonal.value.following.removeWhere((element) => element.id == following.id);
                                           },
-                                        ),
+                                        ):SizedBox(),
                                       ],
                                     ),
                                   );
@@ -150,69 +151,73 @@ class _FollowPageState extends State<FollowPage> {
                                   color: AppColors.black,
                                 ),
                               ),
-                              AppText(
-                                text: 'Suggested Following',
-                                color: AppColors.black,
-                              ),
-                              userController.listSuggestedAccount.isNotEmpty?Column(
-                                children: userController.listSuggestedAccount.map((suggested){
-                                  return Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      children: <Widget>[
-                                        Expanded(
-                                          child: Row(
-                                            children: <Widget>[
-                                              CircleAvatar(
-                                                radius: 30,
-                                                backgroundImage: NetworkImage(suggested.imgSrc),
-                                              ),
-                                              Dimens.width10,
-                                              AppText(
-                                                text: '${suggested.userName}',
-                                                color: AppColors.black,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        GestureDetector(
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                                border: Border.all(color: AppColors.clickableText),
-                                                borderRadius: BorderRadius.circular(20),
-                                                color: AppColors.clickableText
-                                            ),
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(8.0),
-                                              child: AppText(
-                                                text: 'Follow',
+                              userController.userDisplayPersonal.value.id == userController.user.value.id?Column(
+                                children: <Widget>[
+                                  AppText(
+                                    text: 'Suggested Following',
+                                    color: AppColors.black,
+                                  ),
+                                  userController.listSuggestedAccount.isNotEmpty?Column(
+                                    children: userController.listSuggestedAccount.map((suggested){
+                                      return Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          children: <Widget>[
+                                            Expanded(
+                                              child: Row(
+                                                children: <Widget>[
+                                                  CircleAvatar(
+                                                    radius: 30,
+                                                    backgroundImage: NetworkImage(suggested.imgSrc),
+                                                  ),
+                                                  Dimens.width10,
+                                                  AppText(
+                                                    text: '${suggested.userName}',
+                                                    color: AppColors.black,
+                                                  ),
+                                                ],
                                               ),
                                             ),
-                                          ),
-                                          onTap: ()async{
-                                            await userController.addFollow(userController.user.value.id, suggested.id);
-                                            UserFollow user = UserFollow(suggested.id, suggested.id, suggested.name, suggested.imgSrc, suggested.userName, suggested.email);
-                                            userController.user.value.following.add(user);
-                                            userController.listSuggestedAccount.removeWhere((element) => element.id == suggested.id);
-                                          },
+                                            GestureDetector(
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(color: AppColors.clickableText),
+                                                    borderRadius: BorderRadius.circular(20),
+                                                    color: AppColors.clickableText
+                                                ),
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: AppText(
+                                                    text: 'Follow',
+                                                  ),
+                                                ),
+                                              ),
+                                              onTap: ()async{
+                                                await userController.addFollow(userController.user.value.id, suggested.id);
+                                                UserFollow user = UserFollow(suggested.id, suggested.id, suggested.name, suggested.imgSrc, suggested.userName, suggested.email);
+                                                userController.user.value.following.add(user);
+                                                userController.listSuggestedAccount.removeWhere((element) => element.id == suggested.id);
+                                              },
+                                            ),
+                                            Dimens.width10,
+                                            GestureDetector(
+                                              child: Icon(Icons.clear,color: AppColors.black,),
+                                              onTap: (){
+                                                userController.listSuggestedAccount.removeWhere((element) => element.id == suggested.id);
+                                              },
+                                            ),
+                                          ],
                                         ),
-                                        Dimens.width10,
-                                        GestureDetector(
-                                          child: Icon(Icons.clear,color: AppColors.black,),
-                                          onTap: (){
-                                            userController.listSuggestedAccount.removeWhere((element) => element.id == suggested.id);
-                                          },
-                                        ),
-                                      ],
+                                      );
+                                    }).toList(),
+                                  ):Center(
+                                    child: AppText(
+                                      text: 'Not Found',
+                                      color: AppColors.black,
                                     ),
-                                  );
-                                }).toList(),
-                              ):Center(
-                                child: AppText(
-                                  text: 'Not Found',
-                                  color: AppColors.black,
-                                ),
-                              ),
+                                  ),
+                                ],
+                              ):SizedBox(),
                             ],
                           ),
                         ),

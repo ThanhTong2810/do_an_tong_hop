@@ -20,6 +20,10 @@ import 'package:image_picker/image_picker.dart';
 class UserController extends GetxController {
   Rx<User> user = Rx<User>(null);
 
+  Rx<User> userAnother = Rx<User>(null);
+
+  Rx<User> userDisplayPersonal = Rx<User>(null);
+
   Rx<String> errorText = Rx<String>('');
 
   Rx<bool> isShowLoading = Rx<bool>(false);
@@ -34,12 +38,14 @@ class UserController extends GetxController {
         await SignInApi().signInApi(email: email, password: password);
     if (response.data['error'] == null) {
       user.value = User.fromJson(response.data);
+      userDisplayPersonal.value = user.value;
       errorText.value = '';
       final openBox = await Hive.openBox('USER');
       await openBox.put('email', email);
       await openBox.put('password', password);
     } else {
       user.value = null;
+      userDisplayPersonal.value = null;
       errorText.value=response.data['error'];
     }
     isShowLoading.value =false;
@@ -143,7 +149,6 @@ class UserController extends GetxController {
         id: id,
     );
     User user = User.fromJson(response.data);
-    print(user.toMap());
     return user;
   }
 

@@ -1,4 +1,6 @@
 import 'package:do_an_tong_hop/controller/posts_controller.dart';
+import 'package:do_an_tong_hop/controller/user_controller.dart';
+import 'package:do_an_tong_hop/screen/account/account_page.dart';
 import 'package:do_an_tong_hop/screen/comment/comment_page.dart';
 import 'package:do_an_tong_hop/theme/icons_app.dart';
 import 'package:do_an_tong_hop/theme/images_app.dart';
@@ -14,6 +16,7 @@ class FeedWidget extends StatefulWidget {
 
 class _FeedWidgetState extends State<FeedWidget> {
   final PostsController postsController = Get.find();
+  final UserController userController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -32,82 +35,91 @@ class _FeedWidgetState extends State<FeedWidget> {
                   mainAxisSize: MainAxisSize.min,
                   children: postsController.newFeedPosts.map((post) {
                     return Column(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                            vertical: 4,
-                            horizontal: 16,
-                          ).copyWith(right: 0),
-                          child: Row(
-                            children: <Widget>[
-                              CircleAvatar(
-                                  radius: 16,
-                                  backgroundImage : NetworkImage(post.accountImage)
-                              ),
-                              SizedBox(),
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsets.only(
-                                    left: 8,
-                                  ),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      DefaultTextStyle(
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText2,
-                                        child: Text(post.username),
-                                      ),
-                                      Text(
-                                        'Viet Nam',
-                                        style:
-                                            Theme.of(context).textTheme.caption,
-                                      )
-                                    ],
+                      children: <Widget>[
+                        GestureDetector(
+                          onTap: () async{
+                            if(post.idAccount != userController.user.value.id){
+                              userController.userAnother.value = await userController.getAccountById(post.idAccount);
+                              userController.userDisplayPersonal.value = userController.userAnother.value;
+                              Get.to(()=>AccountPage());
+                            }
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                              vertical: 4,
+                              horizontal: 16,
+                            ).copyWith(right: 0),
+                            child: Row(
+                              children: <Widget>[
+                                CircleAvatar(
+                                    radius: 16,
+                                    backgroundImage : NetworkImage(post.accountImage)
+                                ),
+                                SizedBox(),
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                      left: 8,
+                                    ),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        DefaultTextStyle(
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText2,
+                                          child: Text(post.username),
+                                        ),
+                                        Text(
+                                          'Viet Nam',
+                                          style:
+                                              Theme.of(context).textTheme.caption,
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                              IconButton(
-                                onPressed: () {
-                                  showDialog(
-                                    useRootNavigator: false,
-                                    context: context,
-                                    builder: (context) {
-                                      return Dialog(
-                                        child: ListView(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 16),
-                                            shrinkWrap: true,
-                                            children: [
-                                              'Report...',
-                                              'Turn on Post notification',
-                                              'Copy Link',
-                                              'Share to...',
-                                              'Mute'
-                                            ]
-                                                .map((e) => InkWell(
-                                                      child: Container(
-                                                        padding: EdgeInsets
-                                                            .symmetric(
-                                                                vertical: 12,
-                                                                horizontal: 16),
-                                                        child: Text(e),
-                                                      ),
-                                                      onTap: () {
-                                                        Navigator.pop(context);
-                                                      },
-                                                    ))
-                                                .toList()),
-                                      );
-                                    },
-                                  );
-                                },
-                                icon: Icon(Icons.more_vert),
-                              )
-                            ],
+                                IconButton(
+                                  onPressed: () {
+                                    showDialog(
+                                      useRootNavigator: false,
+                                      context: context,
+                                      builder: (context) {
+                                        return Dialog(
+                                          child: ListView(
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 16),
+                                              shrinkWrap: true,
+                                              children: [
+                                                'Report...',
+                                                'Turn on Post notification',
+                                                'Copy Link',
+                                                'Share to...',
+                                                'Mute'
+                                              ]
+                                                  .map((e) => InkWell(
+                                                        child: Container(
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                                  vertical: 12,
+                                                                  horizontal: 16),
+                                                          child: Text(e),
+                                                        ),
+                                                        onTap: () {
+                                                          Navigator.pop(context);
+                                                        },
+                                                      ))
+                                                  .toList()),
+                                        );
+                                      },
+                                    );
+                                  },
+                                  icon: Icon(Icons.more_vert),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                         post.imageSrc.isNotEmpty
