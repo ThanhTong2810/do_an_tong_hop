@@ -129,8 +129,10 @@ class _BottomNavPageState extends State<BottomNavPage> {
                     tabsIcons[4],
                     4 == _currentTabIndex,
                     onPress: () {
+                      postsController.myPost.clear();
                       userController.userAnother.value = null;
                       userController.userDisplayPersonal.value = userController.user.value;
+                      postsController.getPostByID(userController);
                       setState(() {
                         _currentTabIndex = 4;
                         _pageController.jumpToPage(3);

@@ -1,3 +1,4 @@
+import 'package:do_an_tong_hop/controller/posts_controller.dart';
 import 'package:do_an_tong_hop/controller/user_controller.dart';
 import 'package:do_an_tong_hop/screen/account/app_bar_account.dart';
 import 'package:do_an_tong_hop/screen/account/tab_bar_sliver_persistent_header_delegate.dart';
@@ -17,6 +18,7 @@ class AccountPage extends StatefulWidget {
 
 class _AccountPageState extends State<AccountPage> {
   final UserController userController = Get.find();
+  final PostsController postsController = Get.find();
 
   @override
   void initState() {
@@ -64,9 +66,9 @@ class _AccountPageState extends State<AccountPage> {
                               crossAxisSpacing: 2,
                               mainAxisSpacing: 2
                           ),
-                          itemCount: 5,
+                          itemCount: postsController.myPost.length,
                           itemBuilder: (context, index) {
-                            return Image.asset(ImagesApp.searchDemo, fit: BoxFit.cover,);
+                            return Image.network(postsController.myPost[index].imageSrc.first, fit: BoxFit.cover,);
                           }),
                       GridView.builder(
                           padding: EdgeInsets.all(2),

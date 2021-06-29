@@ -11,6 +11,7 @@ class PostsModel {
   final List<CommentModel> comments;
   final String username;
   final String accountImage;
+  final Map like;
 
   PostsModel(
       {this.content,
@@ -20,7 +21,8 @@ class PostsModel {
       this.timeStamp,
       this.comments,
       this.username,
-      this.accountImage});
+      this.accountImage,
+      this.like});
 
   PostsModel.fromJson(Map<dynamic, dynamic> json)
       : idAccount = json['id_account'] ?? "",
@@ -30,7 +32,8 @@ class PostsModel {
         timeStamp = json['timestamp']??0,
         comments = (json['comments'] as List ?? []).map((e) => CommentModel.fromJson(e)).toList(),
         username = json['username']??'',
-        accountImage = json['accountImage']??'';
+        accountImage = json['accountImage']??'',
+        like= json['likes']??{};
   Map<dynamic, dynamic> toMap() => {
     'id_account': idAccount ?? '',
     'id_post': idPost ?? '',
@@ -39,6 +42,7 @@ class PostsModel {
     'timestamp': timeStamp??0,
     'comments':comments.map((e) => e.toMap()).toList()??[],
     'username': username??'',
-    "accountImage": accountImage??''
+    "accountImage": accountImage??'',
+    'likes': like??{}
   };
 }

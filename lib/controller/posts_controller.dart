@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:do_an_tong_hop/api/api_response.dart';
+import 'package:do_an_tong_hop/api/app_api/api_get_post_by_id.dart';
 import 'package:do_an_tong_hop/api/app_api/api_get_posts.dart';
 import 'package:do_an_tong_hop/api/app_api/api_post_comment.dart';
+import 'package:do_an_tong_hop/api/app_api/api_post_like.dart';
 import 'package:do_an_tong_hop/api/app_api/api_post_reply_comment.dart';
 import 'package:do_an_tong_hop/api/app_api/api_post_save_posts.dart';
 import 'package:do_an_tong_hop/controller/user_controller.dart';
@@ -22,6 +24,7 @@ class PostsController extends GetxController{
   Rx<bool> isReply = Rx<bool>(false);
   Rx<String> idComment = Rx<String>(null);
   Rx<String> idOwnerComment = Rx<String>(null);
+  RxList<PostsModel> myPost = RxList<PostsModel>([]);
 
   getPosts(UserController userController) async{
     ApiResponse response =
@@ -77,5 +80,17 @@ class PostsController extends GetxController{
   addReplyComment(UserController userController, String idOwner, String idPost, String idComment, String contentHtml, List<String> mentionList) async{
     ApiResponse response =
         await ReplyCommentApi().replyCommentApi(idAccount: userController.user.value.id,idOwner: idOwner,idPost: idPost,idComment: idComment,mentionList: mentionList,contentHtml: contentHtml);
+  }
+
+  likePost(UserController userController, String idOwner, String idPost) async{
+    ApiResponse response =
+        await LikeApi().likeApi(idAccount: userController.user.value.id, idOwner: idOwner, idPost: idPost);
+  }
+
+  getPostByID(UserController userController) async{
+    ApiResponse response =
+        await GetPostsByIdApi().getPostsByIdApi(accountId: userController.userDisplayPersonal.value.id, postId: '');
+    List posts = response.data;
+    myPost.assignAll(posts.map((e) => PostsModel.fromJson(e)).toList());
   }
 }

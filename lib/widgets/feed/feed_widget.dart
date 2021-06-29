@@ -39,8 +39,10 @@ class _FeedWidgetState extends State<FeedWidget> {
                         GestureDetector(
                           onTap: () async{
                             if(post.idAccount != userController.user.value.id){
+                              postsController.myPost.clear();
                               userController.userAnother.value = await userController.getAccountById(post.idAccount);
                               userController.userDisplayPersonal.value = userController.userAnother.value;
+                              postsController.getPostByID(userController);
                               Get.to(()=>AccountPage());
                             }
                           },
@@ -145,7 +147,9 @@ class _FeedWidgetState extends State<FeedWidget> {
                                     color:
                                         Theme.of(context).colorScheme.onPrimary,
                                   ),
-                                  onPressed: () {}),
+                                  onPressed: () async{
+                                    await postsController.likePost(userController, post.idAccount, post.idPost);
+                                  }),
                               IconButton(
                                   icon: SvgPicture.asset(
                                     IconsApp.icComment,
@@ -188,7 +192,7 @@ class _FeedWidgetState extends State<FeedWidget> {
                                       .subtitle2
                                       .copyWith(fontWeight: FontWeight.w800),
                                   child: Text(
-                                    '1,102 likes',
+                                    '${post.like.length} likes',
                                     style:
                                         Theme.of(context).textTheme.bodyText2,
                                   )),
@@ -217,7 +221,7 @@ class _FeedWidgetState extends State<FeedWidget> {
                               InkWell(
                                 child: Container(
                                   child: Text(
-                                    'View all 4 comment',
+                                    'View all ${post.comments.length} comment',
                                     style: Theme.of(context).textTheme.caption,
                                   ),
                                   padding: EdgeInsets.symmetric(vertical: 4),

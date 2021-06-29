@@ -1,3 +1,4 @@
+import 'package:do_an_tong_hop/controller/posts_controller.dart';
 import 'package:do_an_tong_hop/controller/user_controller.dart';
 import 'package:do_an_tong_hop/screen/account/follow_page.dart';
 import 'package:do_an_tong_hop/widgets/feed/feed_widget.dart';
@@ -15,6 +16,7 @@ class HeaderAccountWidget extends StatefulWidget {
 
 class _HeaderAccountWidgetState extends State<HeaderAccountWidget> {
   final UserController userController= Get.find();
+  final PostsController postsController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -46,15 +48,15 @@ class _HeaderAccountWidgetState extends State<HeaderAccountWidget> {
                       alignment: Alignment.center,
                       child: Row(
                         children: <Widget>[
-                          Expanded(child: MenuItemWidget(title: '146', content: 'Post',)),
-                          Expanded(child: GestureDetector(child: MenuItemWidget(title: '130', content: 'Followers',),onTap: (){
+                          Expanded(child: MenuItemWidget(title: '${postsController.myPost.length}', content: 'Post',)),
+                          Expanded(child: GestureDetector(child: MenuItemWidget(title: '${userController.userDisplayPersonal.value.followers.length}', content: 'Followers',),onTap: (){
                             Get.to(()=>FollowPage(initialIndex: 0,));
                           },)),
                           Expanded(child: GestureDetector(
                             onTap: (){
                               Get.to(()=>FollowPage(initialIndex: 1,));
                             },
-                              child: MenuItemWidget(title: '146', content: 'Following',)
+                              child: MenuItemWidget(title: '${userController.userDisplayPersonal.value.following.length}', content: 'Following',)
                           ))
                         ],
                       ),
