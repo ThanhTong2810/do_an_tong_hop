@@ -217,7 +217,6 @@ class _CommentPageState extends State<CommentPage> {
                             postsController.isShowLoading.value = true;
                             await postsController.addReplyComment(userController, postsController.idOwnerComment.value, widget.idPost, postsController.idComment.value, _comment.text, []);
                             await postsController.getPosts(userController);
-                            // Get.back();
                             postsController.comments.assignAll(postsController.newFeedPosts.where((post) => post.idPost == widget.idPost).first.comments);
                             postsController.idComment.value = null;
                             postsController.idOwnerComment.value = null;
@@ -229,7 +228,6 @@ class _CommentPageState extends State<CommentPage> {
                             await postsController.addComment(userController: userController, idPost: widget.idPost, idOwner: widget.idOwner, mentionList: [], contentHtml: _comment.text);
                             await postsController.getPosts(userController);
                             postsController.isShowLoading.value = false;
-                            // Get.back();
                             _comment.text='';
                             postsController.comments.assignAll(postsController.newFeedPosts.where((post) => post.idPost == widget.idPost).first.comments);
                           }
