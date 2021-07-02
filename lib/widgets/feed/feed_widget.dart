@@ -157,10 +157,11 @@ class _FeedWidgetState extends State<FeedWidget> {
                                         Theme.of(context).colorScheme.onPrimary,
                                   ),
                                   onPressed: () {
+                                    postsController.comments.clear();
+                                    postsController.comments.assignAll(post.comments);
                                     Get.to(() => CommentPage(
                                           idOwner: post.idAccount,
                                           idPost: post.idPost,
-                                          comments: post.comments,
                                         ));
                                   }),
                               IconButton(
@@ -227,6 +228,8 @@ class _FeedWidgetState extends State<FeedWidget> {
                                   padding: EdgeInsets.symmetric(vertical: 4),
                                 ),
                                 onTap: () {
+                                  postsController.comments.clear();
+                                  postsController.comments.assignAll(post.comments);
                                   Get.to(() => CommentPage(
                                         idOwner: post.idAccount,
                                         idPost: post.idPost,

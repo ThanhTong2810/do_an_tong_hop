@@ -14,11 +14,8 @@ import 'comment_widget.dart';
 class CommentPage extends StatefulWidget {
   final String idPost;
   final String idOwner;
-  final List<CommentModel> comments;
 
-  const CommentPage({Key key, this.idPost, this.idOwner
-    , this.comments
-  }) : super(key: key);
+  const CommentPage({Key key, this.idPost, this.idOwner}) : super(key: key);
   @override
   _CommentPageState createState() => _CommentPageState();
 }
@@ -34,7 +31,7 @@ class _CommentPageState extends State<CommentPage> {
   void initState() {
     postsController.idComment.value = null;
     postsController.idOwnerComment.value = null;
-    widget.comments.sort((a,b)=>a.timeStamp.compareTo(b.timeStamp));
+    postsController.comments.sort((a,b)=>a.timeStamp.compareTo(b.timeStamp));
     super.initState();
   }
 
@@ -51,6 +48,10 @@ class _CommentPageState extends State<CommentPage> {
         child: Scaffold(
           resizeToAvoidBottomInset: true,
           appBar: AppBar(
+            leading: IconButton(icon: Icon(Icons.arrow_back_ios_sharp), onPressed: (){
+              Get.back();
+              postsController.comments.clear();
+            },),
             title: Text('Comments'),
             actions: <Widget>[
               IconButton(icon: Icon(Icons.more_vert), onPressed: (){})
@@ -60,7 +61,7 @@ class _CommentPageState extends State<CommentPage> {
             reverse: true,
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              children: widget.comments.map((comment){
+              children: postsController.comments.map((comment){
                 return Container(
                   padding: EdgeInsets.symmetric(
                       vertical: 16,
@@ -216,19 +217,21 @@ class _CommentPageState extends State<CommentPage> {
                             postsController.isShowLoading.value = true;
                             await postsController.addReplyComment(userController, postsController.idOwnerComment.value, widget.idPost, postsController.idComment.value, _comment.text, []);
                             await postsController.getPosts(userController);
-                            Get.back();
+                            // Get.back();
+                            postsController.comments.assignAll(postsController.newFeedPosts.where((post) => post.idPost == widget.idPost).first.comments);
                             postsController.idComment.value = null;
                             postsController.idOwnerComment.value = null;
                             postsController.isReply.value = false;
+                            _comment.text='';
                             postsController.isShowLoading.value = false;
                           }else{
                             postsController.isShowLoading.value = true;
                             await postsController.addComment(userController: userController, idPost: widget.idPost, idOwner: widget.idOwner, mentionList: [], contentHtml: _comment.text);
                             await postsController.getPosts(userController);
                             postsController.isShowLoading.value = false;
-                            Get.back();
+                            // Get.back();
                             _comment.text='';
-
+                            postsController.comments.assignAll(postsController.newFeedPosts.where((post) => post.idPost == widget.idPost).first.comments);
                           }
                         }
                       },
