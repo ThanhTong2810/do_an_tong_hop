@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "439111882257",
+    "firebase_url": "https://api-social-network-4c66d-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "api-social-network-4c66d",
+    "storage_bucket": "api-social-network-4c66d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:439111882257:android:234b61ec1b76ab508d43b0",
+        "android_client_info": {
+          "package_name": "com.example.do_an_tong_hop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "439111882257-hltiu34ecsbl70luiprhdinnqpdkv6hd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARPaMBio98IkG1gn8iimndT3GVZhsHjR8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "439111882257-hltiu34ecsbl70luiprhdinnqpdkv6hd.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "439111882257-ulmvk49ig87d1daon8no8veodd6f9b3l.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.doAnTongHop"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
