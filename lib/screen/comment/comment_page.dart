@@ -1,6 +1,7 @@
 import 'package:do_an_tong_hop/controller/posts_controller.dart';
 import 'package:do_an_tong_hop/controller/user_controller.dart';
 import 'package:do_an_tong_hop/models/posts_model/comment_model.dart';
+import 'package:do_an_tong_hop/theme/colors.dart';
 import 'package:do_an_tong_hop/theme/dimens.dart';
 import 'package:do_an_tong_hop/theme/icons_app.dart';
 import 'package:do_an_tong_hop/theme/images_app.dart';
@@ -123,7 +124,7 @@ class _CommentPageState extends State<CommentPage> {
                           )),
                           Container(
                             padding: EdgeInsets.all(8),
-                            child: Icon(Icons.favorite, size: 16,),
+                            child: Icon(Icons.favorite, size: 16, color: AppColors.red,),
                           )
                         ],
                       ),
@@ -163,7 +164,7 @@ class _CommentPageState extends State<CommentPage> {
                                   )),
                                   Container(
                                     padding: EdgeInsets.all(8),
-                                    child: Icon(Icons.favorite, size: 16,),
+                                    child: Icon(Icons.favorite_border, size: 16,),
                                   )
                                 ],
                               ),

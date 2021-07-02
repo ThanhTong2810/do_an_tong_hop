@@ -1,4 +1,5 @@
 import 'package:do_an_tong_hop/controller/chat_controller.dart';
+import 'package:do_an_tong_hop/controller/posts_controller.dart';
 import 'package:do_an_tong_hop/controller/user_controller.dart';
 import 'package:do_an_tong_hop/utils/utils.dart';
 import 'package:do_an_tong_hop/widgets/feed/feed_widget.dart';
@@ -15,6 +16,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final PostsController postsController = Get.find();
+  final UserController userController = Get.find();
 
   @override
   void initState() {
@@ -35,7 +38,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           onRefresh: () async {
-
+            await postsController.getPosts(userController);
           }),
     );
   }

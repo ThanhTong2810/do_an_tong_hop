@@ -98,7 +98,7 @@ class _SettingPostPageState extends State<SettingPostPage> {
                   child: Row(
                     children: [
                       CircleAvatar(
-                        backgroundImage: AssetImage('lib/res/images/logo.jpg'),
+                        backgroundImage: NetworkImage(userController.user.value.imgSrc),
                       ),
                       Expanded(
                           child: Padding(
