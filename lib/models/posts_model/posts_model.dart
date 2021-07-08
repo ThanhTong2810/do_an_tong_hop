@@ -8,7 +8,7 @@ class PostsModel {
   final String idPost;
   final List<dynamic> imageSrc;
   final int timeStamp;
-  final List<CommentModel> comments;
+  final num comments;
   final String username;
   final String accountImage;
   final Map like;
@@ -30,7 +30,7 @@ class PostsModel {
         imageSrc = json['imageSrc'] ?? [],
         content = json['content'] ?? '',
         timeStamp = json['timestamp']??0,
-        comments = (json['comments'] as List ?? []).map((e) => CommentModel.fromJson(e)).toList(),
+        comments = json['comments']??0,
         username = json['username']??'',
         accountImage = json['accountImage']??'',
         like= json['likes']??{};
@@ -40,7 +40,7 @@ class PostsModel {
     'content': content ?? '',
     'imageSrc': imageSrc ?? [],
     'timestamp': timeStamp??0,
-    'comments':comments.map((e) => e.toMap()).toList()??[],
+    'comments':comments??0,
     'username': username??'',
     "accountImage": accountImage??'',
     'likes': like??{}

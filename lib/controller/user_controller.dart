@@ -13,6 +13,7 @@ import 'package:do_an_tong_hop/api/app_api/api_put_log_out.dart';
 import 'package:do_an_tong_hop/api/app_api/api_put_update_avatar.dart';
 import 'package:do_an_tong_hop/helpers/cloudinary_helper.dart';
 import 'package:do_an_tong_hop/models/user/user.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';

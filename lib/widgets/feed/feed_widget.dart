@@ -157,8 +157,6 @@ class _FeedWidgetState extends State<FeedWidget> {
                                         Theme.of(context).colorScheme.onPrimary,
                                   ),
                                   onPressed: () {
-                                    postsController.comments.clear();
-                                    postsController.comments.assignAll(post.comments);
                                     Get.to(() => CommentPage(
                                           idOwner: post.idAccount,
                                           idPost: post.idPost,
@@ -222,14 +220,12 @@ class _FeedWidgetState extends State<FeedWidget> {
                               InkWell(
                                 child: Container(
                                   child: Text(
-                                    'View all ${post.comments.length} comment',
+                                    'View all ${post.comments} comment',
                                     style: Theme.of(context).textTheme.caption,
                                   ),
                                   padding: EdgeInsets.symmetric(vertical: 4),
                                 ),
                                 onTap: () {
-                                  postsController.comments.clear();
-                                  postsController.comments.assignAll(post.comments);
                                   Get.to(() => CommentPage(
                                         idOwner: post.idAccount,
                                         idPost: post.idPost,

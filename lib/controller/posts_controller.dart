@@ -26,8 +26,6 @@ class PostsController extends GetxController{
   Rx<String> idOwnerComment = Rx<String>(null);
   RxList<PostsModel> myPost = RxList<PostsModel>([]);
 
-  RxList<CommentModel> comments = RxList<CommentModel>([]);
-
   getPosts(UserController userController) async{
     ApiResponse response =
         await GetPostsApi().getPostsApi(id: userController.user.value.id);

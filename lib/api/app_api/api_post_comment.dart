@@ -34,7 +34,7 @@ class CommentPostsApi extends DoAnApi {
       }
       return ApiResponse(
           data: null,
-          apiError: ApiError(e.response.statusCode, e.response.statusMessage)
+          // apiError: ApiError(e.response.statusCode, e.response.statusMessage)
       );
     }
   }

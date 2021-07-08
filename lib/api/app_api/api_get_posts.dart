@@ -9,7 +9,7 @@ class GetPostsApi extends DoAnApi {
   Future<ApiResponse> getPostsApi({String id, String timeStamp}) async {
     var dataSend = {
       "id": id,
-      "timeStamp": timeStamp??null
+      'timestamp': timeStamp??null
     };
     dataSend.removeWhere((key, value) => value == null);
     ApiResponse apiResponse;
