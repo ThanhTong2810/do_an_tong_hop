@@ -107,7 +107,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
                               mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
                                 chatMessages[index].idUser != userController.user.value.id?CircleAvatar(
-                                  backgroundImage: NetworkImage(chatMessages[index].imageSender),
+                                  backgroundImage: chatMessages[index].imageSender.isEmpty ? AssetImage(ImagesApp.logo) : NetworkImage(chatMessages[index].imageSender),
                                   maxRadius: 15,
                                 ):SizedBox(),
                                 Dimens.width10,

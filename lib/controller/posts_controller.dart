@@ -75,6 +75,7 @@ class PostsController extends GetxController{
   addComment({UserController userController, String idPost, String idOwner, String contentHtml, List<String> mentionList}) async{
     ApiResponse response =
         await CommentPostsApi().commentPostsApi(idAccount: userController.user.value.id, idOwner: idOwner, idPost: idPost, contentHtml: contentHtml, mentionList: mentionList);
+    print(response.data);
   }
 
   addReplyComment(UserController userController, String idOwner, String idPost, String idComment, String contentHtml, List<String> mentionList) async{
