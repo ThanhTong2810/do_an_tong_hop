@@ -18,6 +18,9 @@ class DoAnApi {
   static const REPLY_COMMENT = 'post/replyComment';
   static const POST_LIKE = 'post/like';
   static const GET_POSTS_BY_ID= 'post/byId';
+  static const GET_POST_APARTMENT = 'apt/getPost';
+  static const GET_BILL_APARTMENT = 'apt/getBill';
+  static const GET_COST_APARTMENT = 'apt/getCost';
 
   /// HEADERS
   static const CONTENT_TYPE = 'Content-Type';

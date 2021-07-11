@@ -49,6 +49,12 @@ String formatDateToHours(DateTime dateTime) {
   return formatted;
 }
 
+String formatBillDateTime(DateTime dateTime) {
+  var formatter = DateFormat('H:mm * dd-MM-yyyy');
+  String formatted = formatter.format(dateTime);
+  return formatted;
+}
+
 String formatDate(DateTime dateTime) {
   var formatter = DateFormat('EEEE, MMM d yyy');
   var formatted = formatter.format(dateTime);

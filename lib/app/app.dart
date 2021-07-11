@@ -2,6 +2,7 @@
 import 'dart:async';
 
 import 'package:connectivity/connectivity.dart';
+import 'package:do_an_tong_hop/controller/apartment_controller.dart';
 import 'package:do_an_tong_hop/controller/app_controller.dart';
 import 'package:do_an_tong_hop/controller/chat_controller.dart';
 import 'package:do_an_tong_hop/controller/notify_controller.dart';
@@ -78,6 +79,7 @@ class _AppState extends State<DoAnApp> {
           Get.put(ChatController());
           Get.put(PostsController());
           Get.put(NotifyController());
+          Get.put(ApartmentController());
         }),
         debugShowCheckedModeBanner: false,
         title: '',

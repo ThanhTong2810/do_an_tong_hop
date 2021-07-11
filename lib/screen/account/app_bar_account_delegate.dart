@@ -1,6 +1,9 @@
 import 'dart:developer' as developer;
 
 import 'package:do_an_tong_hop/controller/user_controller.dart';
+import 'package:do_an_tong_hop/screen/apartment/bill_apartment.dart';
+import 'package:do_an_tong_hop/screen/apartment/cost_apartment.dart';
+import 'package:do_an_tong_hop/screen/apartment/post_apartment.dart';
 import 'package:do_an_tong_hop/screen/sign_in_page/sign_in_page.dart';
 import 'package:do_an_tong_hop/theme/colors.dart';
 import 'package:do_an_tong_hop/theme/dimens.dart';
@@ -48,7 +51,7 @@ class AppBarAccountDelegate extends SliverPersistentHeaderDelegate {
               userController.userDisplayPersonal.value.id == userController.user.value.id ?IconButton(
                 icon: Icon(Icons.menu),
                 onPressed: () async{
-                  await showModalBottomSheet(
+                  showModalBottomSheet(
                       context: context,
                     builder: (BuildContext contextOptions){
                         return Column(
@@ -76,6 +79,38 @@ class AppBarAccountDelegate extends SliverPersistentHeaderDelegate {
 
                               },
                             ),
+                            GestureDetector(
+                              child: Card(
+                                elevation: 0,
+                                child: ListTile(
+                                  leading: Icon(Icons.article_outlined, color: AppColors.black,),
+                                  title: AppText(
+                                    text: 'Post Apartment',
+                                    color: AppColors.black,
+                                  ),
+                                ),
+                              ),
+                              onTap: () async{
+                                Get.back();
+                                Get.to(()=>PostApartmentScreen());
+                              },
+                            ),
+                            GestureDetector(
+                              child: Card(
+                                elevation: 0,
+                                child: ListTile(
+                                  leading: Icon(Icons.monetization_on_outlined, color: AppColors.black,),
+                                  title: AppText(
+                                    text: 'Bill Apartment',
+                                    color: AppColors.black,
+                                  ),
+                                ),
+                              ),
+                              onTap: () async{
+                                Get.back();
+                                Get.to(()=>BillApartmentScreen());
+                              },
+                            ),
                           ],
                         );
                     },
@@ -85,7 +120,7 @@ class AppBarAccountDelegate extends SliverPersistentHeaderDelegate {
             ],
           ),
         ),
-        elevation: (overlapsContent || (shrinkOffset > maxExtent - minExtent)) ? 4: 0,
+        elevation: 0,
       );
     });
   }
