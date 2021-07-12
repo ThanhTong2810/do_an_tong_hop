@@ -240,8 +240,8 @@ class _CommentPageState extends State<CommentPage> {
                 child: Row(
                   children: [
                     CircleAvatar(
-                      backgroundImage: AssetImage(
-                          ImagesApp.logo
+                      backgroundImage: NetworkImage(
+                          userController.user.value.imgSrc
                       ),
                       radius: 18,
                     ),

@@ -48,11 +48,10 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: AppColors.white,
       body: Center(
         child: FadeContainer(
-          child: SvgPicture.asset(
-            IconsApp.logoInsta,
-            color: Theme.of(context).colorScheme.onBackground,
-            height: logoSize,
-            width: logoSize,
+          child: Image(
+            image: AssetImage(
+              ImagesApp.logoBanQuanLy,
+            ),
           ),
         ),
       ),
