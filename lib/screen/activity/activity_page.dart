@@ -48,9 +48,11 @@ class _ActivityPageState extends State<ActivityPage> {
                   );
                 }
                 snapshot.data.snapshot.value.forEach((k,v){
-                  v['notification'].forEach((k,v){
-                    notifications.add(Notify.fromJson(v));
-                  });
+                  if(v['notification']!=null){
+                    v['notification'].forEach((k,v){
+                      notifications.add(Notify.fromJson(v));
+                    });
+                  }
                 });
                 notifications.sort((a,b)=> a.timestamp.compareTo(b.timestamp));
                 return ListView.builder(

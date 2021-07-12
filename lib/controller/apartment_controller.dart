@@ -21,9 +21,9 @@ class ApartmentController extends GetxController{
     postsApartment.sort((a,b)=>b.ngayDang.compareTo(a.ngayDang));
   }
 
-  getBillsApartment() async{
+  getBillsApartment(UserController userController) async{
     ApiResponse response =
-    await GetBillApartmentApi().getBillApartmentApi();
+    await GetBillApartmentApi().getBillApartmentApi(id: userController.user.value.id);
     List bills = response.data;
     billsApartment.assignAll(bills.map((e) => BillApartment.fromJson(e)).toList());
   }

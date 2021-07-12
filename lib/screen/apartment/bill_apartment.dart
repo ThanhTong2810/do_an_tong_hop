@@ -1,4 +1,5 @@
 import 'package:do_an_tong_hop/controller/apartment_controller.dart';
+import 'package:do_an_tong_hop/controller/user_controller.dart';
 import 'package:do_an_tong_hop/models/apartment/bill_apartment.dart';
 import 'package:do_an_tong_hop/theme/colors.dart';
 import 'package:do_an_tong_hop/theme/dimens.dart';
@@ -16,6 +17,7 @@ class BillApartmentScreen extends StatefulWidget {
 
 class _BillApartmentScreenState extends State<BillApartmentScreen> {
   final ApartmentController apartmentController = Get.find();
+  final UserController userController = Get.find();
 
   @override
   void initState() {
@@ -24,7 +26,7 @@ class _BillApartmentScreenState extends State<BillApartmentScreen> {
   }
 
   getBillsApartment() async{
-    await apartmentController.getBillsApartment();
+    await apartmentController.getBillsApartment(userController);
   }
 
   @override

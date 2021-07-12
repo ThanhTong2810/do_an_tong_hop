@@ -105,20 +105,19 @@ class _SignInPageState extends State<SignInPage> {
                           style: Theme.of(context)
                               .textTheme
                               .bodyText1
-                              ?.copyWith(color: Colors.white),
+                              ?.copyWith(color: Colors.black),
                         ),
                         width: double.infinity,
                         alignment: Alignment.center,
                         padding: EdgeInsets.symmetric(vertical: 12),
                         decoration: ShapeDecoration(
+                          color: AppColors.white,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(4)),
+                              side: BorderSide(width: 1),
+                              borderRadius: BorderRadius.all(Radius.circular(4),
+                              ),
                             ),
-                            gradient: LinearGradient(colors: [
-                              Color(0xFF405de6),
-                              Color(0xFF833ab4),
-                              Color(0xFFe1306c),
-                            ])),
+                        ),
                       ),
                       onTap: () async{
                         await userController.signIn(email.text, password.text);
@@ -142,19 +141,19 @@ class _SignInPageState extends State<SignInPage> {
                       child: Container(),
                       flex: 2,
                     ),
-                    GestureDetector(
-                      onTap: (){
-                        userController.errorText.value = '';
-                        Get.offAll(()=>SignUpPage());
-                      },
-                      child: Container(
-                        child: Text(
-                          'Don\'t have an account? sign up',
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
-                        padding: EdgeInsets.symmetric(vertical: 8),
-                      ),
-                    ),
+                    // GestureDetector(
+                    //   onTap: (){
+                    //     userController.errorText.value = '';
+                    //     Get.offAll(()=>SignUpPage());
+                    //   },
+                    //   child: Container(
+                    //     child: Text(
+                    //       'Don\'t have an account? sign up',
+                    //       style: Theme.of(context).textTheme.bodyText1,
+                    //     ),
+                    //     padding: EdgeInsets.symmetric(vertical: 8),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

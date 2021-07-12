@@ -8,7 +8,7 @@ class GetBillApartmentApi extends DoAnApi {
 
   Future<ApiResponse> getBillApartmentApi({String id}) async {
     var dataSend = {
-      "id": '-Me4GA_DkO-6fJkIYMBb',
+      "id": id,
     };
     ApiResponse apiResponse;
     try {
