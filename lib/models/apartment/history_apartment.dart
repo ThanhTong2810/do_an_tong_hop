@@ -1,37 +1,33 @@
-class BillApartment {
+class HistoryApartment {
   final String maCanHo;
   final String id;
   final String loai_phieuThu;
-  final Map noiDung;
   final bool tinhTrang;
   final num tongTien;
-  final num ngayLapPhieu;
+  final num ngayThanhToan;
 
-  BillApartment(
+  HistoryApartment(
       {this.maCanHo,
-      this.id,
-      this.loai_phieuThu,
-      this.noiDung,
-      this.tinhTrang,
-      this.tongTien,
-      this.ngayLapPhieu});
+        this.id,
+        this.loai_phieuThu,
+        this.tinhTrang,
+        this.tongTien,
+        this.ngayThanhToan});
 
-  BillApartment.fromJson(Map<dynamic, dynamic> json)
+  HistoryApartment.fromJson(Map<dynamic, dynamic> json)
       : maCanHo = json['maCanHo'] ?? '',
         id = json['_id'] ?? '',
         loai_phieuThu = json['loai_phieuThu'] ?? '',
-        noiDung = json['noiDung'] ?? {},
         tinhTrang = json['tinhTrang']??false,
         tongTien = json['tongTien'] ?? 0,
-        ngayLapPhieu = json['ngayLapPhieu']??0;
+        ngayThanhToan = json['ngayThanhToan']??0;
 
   Map<dynamic, dynamic> toMap() => {
     'maCanHo': maCanHo ?? '',
     '_id': id ?? '',
     'loai_phieuThu': loai_phieuThu ?? '',
-    'noiDung': noiDung ?? {},
     'tinhTrang' : tinhTrang??false,
     'tongTien': tongTien ?? 0,
-    'ngayLapPhieu' : ngayLapPhieu??0,
+    'ngayThanhToan' : ngayThanhToan??0,
   };
 }

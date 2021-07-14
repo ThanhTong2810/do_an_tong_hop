@@ -3,6 +3,7 @@ import 'dart:developer' as developer;
 import 'package:do_an_tong_hop/controller/user_controller.dart';
 import 'package:do_an_tong_hop/screen/apartment/bill_apartment.dart';
 import 'package:do_an_tong_hop/screen/apartment/cost_apartment.dart';
+import 'package:do_an_tong_hop/screen/apartment/history_aparment.dart';
 import 'package:do_an_tong_hop/screen/apartment/post_apartment.dart';
 import 'package:do_an_tong_hop/screen/sign_in_page/sign_in_page.dart';
 import 'package:do_an_tong_hop/theme/colors.dart';
@@ -109,6 +110,22 @@ class AppBarAccountDelegate extends SliverPersistentHeaderDelegate {
                               onTap: () async{
                                 Get.back();
                                 Get.to(()=>BillApartmentScreen());
+                              },
+                            ),
+                            GestureDetector(
+                              child: Card(
+                                elevation: 0,
+                                child: ListTile(
+                                  leading: Icon(Icons.history, color: AppColors.black,),
+                                  title: AppText(
+                                    text: 'History Apartment',
+                                    color: AppColors.black,
+                                  ),
+                                ),
+                              ),
+                              onTap: () async{
+                                Get.back();
+                                Get.to(()=>HistoryApartmentScreen());
                               },
                             ),
                           ],

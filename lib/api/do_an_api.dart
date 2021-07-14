@@ -21,6 +21,7 @@ class DoAnApi {
   static const GET_POST_APARTMENT = 'apt/getPost';
   static const GET_BILL_APARTMENT = 'apt/getBill';
   static const GET_COST_APARTMENT = 'apt/getCost';
+  static const GET_HISTORY_APARTMENT = 'apt/getHistoryPay';
 
   /// HEADERS
   static const CONTENT_TYPE = 'Content-Type';

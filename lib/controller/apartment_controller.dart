@@ -1,10 +1,12 @@
 import 'package:do_an_tong_hop/api/api_response.dart';
 import 'package:do_an_tong_hop/api/app_api/apartment/api_get_bill_apartment.dart';
 import 'package:do_an_tong_hop/api/app_api/apartment/api_get_cost_apartment.dart';
+import 'package:do_an_tong_hop/api/app_api/apartment/api_get_history_pay.dart';
 import 'package:do_an_tong_hop/api/app_api/apartment/api_get_post_apartment.dart';
 import 'package:do_an_tong_hop/controller/user_controller.dart';
 import 'package:do_an_tong_hop/models/apartment/bill_apartment.dart';
 import 'package:do_an_tong_hop/models/apartment/cost_apartment.dart';
+import 'package:do_an_tong_hop/models/apartment/history_apartment.dart';
 import 'package:do_an_tong_hop/models/apartment/post_apartment.dart';
 import 'package:get/get.dart';
 
@@ -12,6 +14,7 @@ class ApartmentController extends GetxController{
   RxList<PostApartment> postsApartment = RxList<PostApartment>([]);
   RxList<CostApartment> costsApartment = RxList<CostApartment>([]);
   RxList<BillApartment> billsApartment = RxList<BillApartment>([]);
+  RxList<HistoryApartment> historyApartment = RxList<HistoryApartment>([]);
 
   getPostsApartment() async{
     ApiResponse response =
@@ -19,6 +22,13 @@ class ApartmentController extends GetxController{
     List posts = response.data??[];
     postsApartment.assignAll(posts.map((e) => PostApartment.fromJson(e)).toList());
     postsApartment.sort((a,b)=>b.ngayDang.compareTo(a.ngayDang));
+  }
+
+  getHistoryApartment(UserController userController) async{
+    ApiResponse response =
+    await GetHistoryApartmentApi().getHistoryApartmentApi(id: userController.user.value.id);
+    List history = response.data??[];
+    historyApartment.assignAll(history.map((e) => HistoryApartment.fromJson(e)).toList());
   }
 
   getBillsApartment(UserController userController) async{

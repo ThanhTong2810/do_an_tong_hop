@@ -69,7 +69,7 @@ class _BillApartmentScreenState extends State<BillApartmentScreen> {
                   ),
                   _buildTitleContentCard('Căn hộ: ', bill.maCanHo),
                   Dimens.height10,
-                  _buildTitleContentCard('Ngày lập phiếu: ', '${formatBillDateTime(DateTime.tryParse(bill.ngayLapPhieu))}'),
+                  _buildTitleContentCard('Ngày lập phiếu: ', '${formatBillDateTime(DateTime.fromMillisecondsSinceEpoch(bill.ngayLapPhieu))}'),
                   Dimens.height10,
                   Table(
                     defaultVerticalAlignment: TableCellVerticalAlignment.middle,
@@ -197,7 +197,7 @@ class _BillApartmentScreenState extends State<BillApartmentScreen> {
                   ),
                   _buildTitleContentCard('Căn hộ: ', bill.maCanHo),
                   Dimens.height10,
-                  _buildTitleContentCard('Ngày lập phiếu: ', '${formatBillDateTime(DateTime.tryParse(bill.ngayLapPhieu))}'),
+                  _buildTitleContentCard('Ngày lập phiếu: ', '${formatBillDateTime(DateTime.fromMillisecondsSinceEpoch(bill.ngayLapPhieu))}'),
                   Dimens.height10,
                   Table(
                     defaultVerticalAlignment: TableCellVerticalAlignment.middle,
@@ -375,7 +375,7 @@ class _BillApartmentScreenState extends State<BillApartmentScreen> {
                   ),
                   _buildTitleContentCard('Căn hộ: ', bill.maCanHo),
                   Dimens.height10,
-                  _buildTitleContentCard('Ngày lập phiếu: ', '${formatBillDateTime(DateTime.tryParse(bill.ngayLapPhieu))}'),
+                  _buildTitleContentCard('Ngày lập phiếu: ', '${formatBillDateTime(DateTime.fromMillisecondsSinceEpoch(bill.ngayLapPhieu))}'),
                   Dimens.height10,
                   Table(
                     defaultVerticalAlignment: TableCellVerticalAlignment.middle,
