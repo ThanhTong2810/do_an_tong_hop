@@ -5,6 +5,7 @@ import 'package:do_an_tong_hop/theme/colors.dart';
 import 'package:do_an_tong_hop/theme/dimens.dart';
 import 'package:do_an_tong_hop/theme/icons_app.dart';
 import 'package:do_an_tong_hop/screen/main_screen_bottom_nav/bottom_nav_page.dart';
+import 'package:do_an_tong_hop/theme/images_app.dart';
 import 'package:do_an_tong_hop/utils/utils.dart';
 import 'package:do_an_tong_hop/widgets/app_text.dart';
 import 'package:do_an_tong_hop/widgets/loading_container.dart';
@@ -48,10 +49,11 @@ class _SignUpPageState extends State<SignUpPage> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      SvgPicture.asset(
-                        IconsApp.logoInsta,
-                        color: Theme.of(context).colorScheme.onBackground,
-                        height: 32,
+                      Image(
+                        image: AssetImage(
+                          ImagesApp.logoBanQuanLy,
+                        ),
+                        height: 32
                       ),
                       Text(
                         'Sign up and use more feature',
