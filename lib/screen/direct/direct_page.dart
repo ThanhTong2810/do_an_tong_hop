@@ -97,14 +97,14 @@ class _DirectPageState extends State<DirectPage> {
                           if (chatController.listRoomContainId.isNotEmpty &&
                               chatController.listRoomContainId.values
                                       .where((element) =>
-                                          element['containId'][following.id] !=
+                                          element['containId'][following.idAccount] !=
                                               null &&
                                           element['containId'].length == 2)
                                       .length ==
                                   1) {
                             containId = chatController.listRoomContainId.values
                                 .where((element) =>
-                                    element['containId'][following.id] !=
+                                    element['containId'][following.idAccount] !=
                                         null &&
                                     element['containId'].length == 2)
                                 .first;
@@ -122,9 +122,9 @@ class _DirectPageState extends State<DirectPage> {
                             chatController.roomSelected.value =
                             containId['idRoom'];
                             Get.to(() => MessagesScreen(
-                                name: containId['containId'][following.id]
+                                name: containId['containId'][following.idAccount]
                                 ['username'],
-                                imgSrc: containId['containId'][following.id]
+                                imgSrc: containId['containId'][following.idAccount]
                                 ['imageSrc'],
                                 isGroup: false));
                           }

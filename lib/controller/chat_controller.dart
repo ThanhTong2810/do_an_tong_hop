@@ -29,7 +29,7 @@ class ChatController extends GetxController{
     String idRoom = FirebaseDatabase.instance.reference().child("chat_info").push().key;
     Map containId ={};
     containId.addAll({
-      "${user.id}":{
+      "${user.idAccount}":{
         "id":user.idAccount,
         "imageSrc": user.imageSrc,
         "name": user.name,
