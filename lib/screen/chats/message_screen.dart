@@ -101,27 +101,37 @@ class _MessagesScreenState extends State<MessagesScreen> {
                       return SingleChildScrollView(
                         child: Container(
                           padding: EdgeInsets.only(left: 14,right: 14,top: 10,bottom: 10),
-                          child: Align(
-                            alignment: (chatMessages[index].idUser != userController.user.value.id?Alignment.topLeft:Alignment.topRight),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                chatMessages[index].idUser != userController.user.value.id?CircleAvatar(
-                                  backgroundImage: chatMessages[index].imageSender.isEmpty ? AssetImage(ImagesApp.logo) : NetworkImage(chatMessages[index].imageSender),
-                                  maxRadius: 15,
-                                ):SizedBox(),
-                                Dimens.width10,
-                                Container(
-                                  constraints: BoxConstraints(maxWidth: getScreenWidth(context)/1.5),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: (chatMessages[index].idUser != userController.user.value.id?Colors.grey.shade200:Colors.blue[200]),
-                                  ),
-                                  padding: EdgeInsets.all(12),
-                                  child: Text(chatMessages[index].content, style: TextStyle(fontSize: 15),),
+                          child: Column(
+                            children: <Widget>[
+                              chatMessages[index].image.length != 0 ? Padding(
+                                padding: EdgeInsets.only(bottom: 8.0),
+                                child: Row(
+                                  children: chatMessages[index].image.map((image) => Image.network(image,width: 200, height: 150,)).toList(),
                                 ),
-                              ],
-                            ),
+                              ) : SizedBox(),
+                              Align(
+                                alignment: (chatMessages[index].idUser != userController.user.value.id?Alignment.topLeft:Alignment.topRight),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    chatMessages[index].idUser != userController.user.value.id?CircleAvatar(
+                                      backgroundImage: chatMessages[index].imageSender.isEmpty ? AssetImage(ImagesApp.logo) : NetworkImage(chatMessages[index].imageSender),
+                                      maxRadius: 15,
+                                    ):SizedBox(),
+                                    Dimens.width10,
+                                    Container(
+                                      constraints: BoxConstraints(maxWidth: getScreenWidth(context)/1.5),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: (chatMessages[index].idUser != userController.user.value.id?Colors.grey.shade200:Colors.blue[200]),
+                                      ),
+                                      padding: EdgeInsets.all(12),
+                                      child: Text(chatMessages[index].content, style: TextStyle(fontSize: 15),),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       );
