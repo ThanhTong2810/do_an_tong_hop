@@ -72,7 +72,8 @@ class _DirectPageState extends State<DirectPage> {
                   ),
                   Column(
                     mainAxisSize: MainAxisSize.min,
-                    children: userController.user.value.following.map((following) {
+                    children:
+                        userController.user.value.following.map((following) {
                       return GestureDetector(
                         child: Card(
                           elevation: 0,
@@ -119,12 +120,12 @@ class _DirectPageState extends State<DirectPage> {
                           } else {
                             print('Already Has Room');
                             chatController.roomSelected.value =
-                                containId['idRoom'];
+                            containId['idRoom'];
                             Get.to(() => MessagesScreen(
                                 name: containId['containId'][following.id]
-                                    ['username'],
+                                ['username'],
                                 imgSrc: containId['containId'][following.id]
-                                    ['imageSrc'],
+                                ['imageSrc'],
                                 isGroup: false));
                           }
                         },
@@ -200,7 +201,8 @@ class _DirectPageState extends State<DirectPage> {
                 children: <Widget>[
                   Column(
                     mainAxisSize: MainAxisSize.min,
-                    children: userController.user.value.following.map((following) {
+                    children:
+                        userController.user.value.following.map((following) {
                       return Row(
                         children: <Widget>[
                           Expanded(

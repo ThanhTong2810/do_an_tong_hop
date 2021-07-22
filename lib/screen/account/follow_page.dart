@@ -173,6 +173,7 @@ class _FollowPageState extends State<FollowPage> {
                                                   Dimens.width10,
                                                   AppText(
                                                     text: '${suggested.userName}',
+                                                    maxLines: 1,
                                                     color: AppColors.black,
                                                   ),
                                                 ],

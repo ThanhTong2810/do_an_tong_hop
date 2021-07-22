@@ -50,6 +50,7 @@ class _ActivityPageState extends State<ActivityPage> {
                 snapshot.data.snapshot.value.forEach((k,v){
                   if(v['notification']!=null){
                     v['notification'].forEach((k,v){
+                      print(v);
                       notifications.add(Notify.fromJson(v));
                     });
                   }
